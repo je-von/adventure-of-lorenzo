@@ -1,0 +1,4 @@
+repository "TPAGame@jevon@cloud"
+  path "/"
+    br "/main"
+    co "/main"
