@@ -8,7 +8,6 @@ public class ButtonManager : MonoBehaviour
     public GameObject mainPanel, optionPanel;
     public void ShowOptionsMenu()
     {
-        //SceneManager.LoadScene(sceneName: "OptionScene");
         mainPanel.SetActive(false);
         optionPanel.SetActive(true);
 
@@ -16,7 +15,6 @@ public class ButtonManager : MonoBehaviour
 
     public void ShowMainMenu()
     {
-        //SceneManager.LoadScene(sceneName: "MainScene");
         mainPanel.SetActive(true);
         optionPanel.SetActive(false);
 
