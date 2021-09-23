@@ -8,9 +8,21 @@ public class LorenzoController : MonoBehaviour
     Animator animator;
     public Vector3 velocity;
     public float speed = 5f;
+    public Weapon primaryWeapon, secondaryWeapon, currentWeapon;
+    public GameObject rightHand,leftHand;
+
+    public bool isShootingMode;
     // Start is called before the first frame update
     void Start()
     {
+        isShootingMode = false;
+
+        primaryWeapon = new Weapon(GameObject.Find("Primary Weapon"), rightHand, new Vector3(0.064f, 0.158f, -0.025f), new Vector3(-38.653f, 97.681f, 311.494f));
+
+        secondaryWeapon = new Weapon(GameObject.Find("Secondary Weapon"), leftHand, new Vector3(0.0111f, -0.068f, 0.087f), new Vector3(-204.06f, 0f, -129.7f));
+
+        currentWeapon = primaryWeapon;
+
         Cursor.lockState = CursorLockMode.Locked;
         controller = GetComponent<CharacterController>();
         velocity.y = 0;
@@ -21,10 +33,9 @@ public class LorenzoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.C))
-        {
-            animator.SetBool("isAiming", !animator.GetBool("isAiming"));
-        }
+        CheckAiming();
+        StartCoroutine(ChangeWeapon());
+
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
         var direction = Vector3.forward * vertical + Vector3.right * horizontal;
@@ -48,5 +59,88 @@ public class LorenzoController : MonoBehaviour
         }
         velocity.y -= 9.81f * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    //private void ChangeWeapon()
+    //{
+        
+    //}
+
+    private void CheckAiming()
+    {
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+            if (!animator.GetBool("isAiming") && !isShootingMode)
+            {
+                isShootingMode = true;
+                speed = 3f;
+                currentWeapon.PickWeapon();
+
+                animator.SetBool("isAiming", true);
+            }
+            else
+            {
+                if(isShootingMode)
+                    StartCoroutine(WaitAndPutWeapon());
+                isShootingMode = false;
+                speed = 5f;
+                animator.SetBool("isAiming", false);
+            }
+
+
+            //animator.SetBool("isAiming", !animator.GetBool("isAiming"));
+        }
+    }
+
+    IEnumerator WaitAndPutWeapon()
+    {
+        yield return new WaitForSeconds(0.25f);
+
+        currentWeapon.PutWeapon();
+    }
+
+    IEnumerator ChangeWeapon()
+    {
+        if (Input.GetKeyUp(KeyCode.Q) && isShootingMode)
+        {
+            if (animator.GetBool("isAiming") && currentWeapon != primaryWeapon)
+            {
+                StartCoroutine(WaitAndPutWeapon());
+                animator.SetBool("isAiming", false);
+                yield return new WaitForSeconds(0.25f);
+            }
+            currentWeapon = primaryWeapon;
+            currentWeapon.PickWeapon();
+            animator.SetBool("isAiming", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.E) && isShootingMode)
+        {
+            if (animator.GetBool("isAiming") && currentWeapon != secondaryWeapon)
+            {
+                StartCoroutine(WaitAndPutWeapon());
+                animator.SetBool("isAiming", false);
+                yield return new WaitForSeconds(0.25f);
+            }
+            currentWeapon = secondaryWeapon;
+            currentWeapon.PickWeapon();
+            animator.SetBool("isAiming", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.X) && isShootingMode)
+        {
+            if (animator.GetBool("isAiming"))
+            {
+                StartCoroutine(WaitAndPutWeapon());
+            }
+            else
+            {
+                currentWeapon.PickWeapon();
+            }
+            animator.SetBool("isAiming", !animator.GetBool("isAiming"));
+        }
+
+        //animator.SetBool("isAiming", !animator.GetBool("isAiming"));
+        //yield return new WaitForSeconds(0.25f);
+
+        //animator.SetBool("isAiming", !animator.GetBool("isAiming"));
     }
 }

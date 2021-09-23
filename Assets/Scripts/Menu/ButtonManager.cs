@@ -20,6 +20,11 @@ public class ButtonManager : MonoBehaviour
 
     }
 
+    public void ShowGameMenu()
+    {
+        SceneManager.LoadScene(sceneName: "GameScene");
+    }
+
     public void ExitGame()
     {
         Application.Quit();

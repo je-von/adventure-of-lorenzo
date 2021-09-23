@@ -829,7 +829,6 @@ GameObject:
   m_Component:
   - component: {fileID: 353665661}
   - component: {fileID: 353665662}
-  - component: {fileID: 353665663}
   m_Layer: 5
   m_Name: Volume Slider
   m_TagString: Untagged
@@ -922,18 +921,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &353665663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 353665660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7157646b589bced40bd47e5791b0dc93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &358552411
 GameObject:
   m_ObjectHideFlags: 0
@@ -3439,7 +3426,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1169950903}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1888085521}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: ShowGameMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1169950903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4545,7 +4544,6 @@ GameObject:
   - component: {fileID: 1716066350}
   - component: {fileID: 1716066349}
   - component: {fileID: 1716066348}
-  - component: {fileID: 1716066347}
   m_Layer: 5
   m_Name: Graphic Dropdown
   m_TagString: Untagged
@@ -4575,18 +4573,6 @@ RectTransform:
   m_AnchoredPosition: {x: -60.109016, y: -42.8}
   m_SizeDelta: {x: 299.58, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1716066347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1716066345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b585ed99797dc8348874b8cc31ae3fff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1716066348
 MonoBehaviour:
   m_ObjectHideFlags: 0
