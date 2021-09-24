@@ -13,63 +13,19 @@ MonoBehaviour:
   m_Name: Camera Blends
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: Exploration Cam
-    m_To: Shooting Cam (L)
-    m_Blend:
-      m_Style: 1
-      m_Time: 1
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Shooting Cam (L)
-    m_To: Exploration Cam
-    m_Blend:
-      m_Style: 1
-      m_Time: 1
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Exploration Cam
-    m_To: Shooting Cam (R)
-    m_Blend:
-      m_Style: 1
-      m_Time: 1
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Shooting Cam (R)
-    m_To: Exploration Cam
-    m_Blend:
-      m_Style: 1
-      m_Time: 1
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: Shooting Cam (L)
-    m_To: Shooting Cam (R)
-    m_Blend:
-      m_Style: 1
-      m_Time: 1
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
   - m_From: Shooting Cam (R)
     m_To: Shooting Cam (L)
+    m_Blend:
+      m_Style: 1
+      m_Time: 1
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: '**ANY CAMERA**'
+    m_To: '**ANY CAMERA**'
     m_Blend:
       m_Style: 1
       m_Time: 1

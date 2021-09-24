@@ -48,10 +48,15 @@ public class LorenzoController : MonoBehaviour
             var weaponRotation = Vector3.up * mouseY;
 
             transform.Rotate(new Vector3(0, mouseX, 0));
+
+            currentWeapon.weaponObj.transform.Rotate(new Vector3(-mouseY, 0, 0));
+            //rightHand.transform.Rotate(new Vector3(-mouseY, 0, 0));
+            //leftHand.transform.Rotate(new Vector3(-mouseY, 0, 0));
+
             //if (playerRotation.magnitude > 0.1f)
             //{
-                //var targetRotation = Quaternion.LookRotation(playerRotation, Vector3.up);
-                //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed * Time.deltaTime);
+            //var targetRotation = Quaternion.LookRotation(playerRotation, Vector3.up);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed * Time.deltaTime);
 
 
             //}
@@ -98,20 +103,39 @@ public class LorenzoController : MonoBehaviour
 
     private void ChangeShootingCamera()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) && isShootingMode)
+        if (isShootingMode)
         {
-            if (shootingCamR.activeInHierarchy)
+            if (Input.GetKeyDown(KeyCode.Tab))
             {
-                shootingCamL.SetActive(true);
-                shootingCamR.SetActive(false);
+                if (shootingCamR.activeInHierarchy)
+                {
+                    shootingCamL.SetActive(true);
+                    shootingCamR.SetActive(false);
+                }
+                else
+                {
+                    shootingCamR.SetActive(true);
+                    shootingCamL.SetActive(false);
+                }
             }
-            else
+            if (Input.GetMouseButtonDown(1))
             {
-                shootingCamR.SetActive(true);
-                shootingCamL.SetActive(false);
+                var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
+                currentCam.SetActive(false);
+                currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 1.6f;
+                currentCam.SetActive(true);
+
+            }
+            if (Input.GetMouseButtonUp(1))
+            {
+                var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
+                currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 3f;
             }
         }
+        
     }
+
+    
 
     private void CheckAiming()
     {
