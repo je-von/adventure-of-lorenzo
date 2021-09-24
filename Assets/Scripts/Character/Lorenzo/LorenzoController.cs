@@ -7,7 +7,7 @@ public class LorenzoController : MonoBehaviour
     protected CharacterController controller;
     Animator animator;
     public Vector3 velocity;
-    public float speed = 1.5f, turnSmoothTime = 0.1f, turnSmoothVelocity;
+    public float speed = 3f, turnSmoothTime = 0.1f, turnSmoothVelocity;
     public Weapon primaryWeapon, secondaryWeapon, currentWeapon;
     public GameObject rightHand,leftHand;
     public Transform cam;
@@ -79,7 +79,7 @@ public class LorenzoController : MonoBehaviour
             if (!animator.GetBool("isAiming") && !isShootingMode)
             {
                 isShootingMode = true;
-                speed = 1f;
+                speed = 2f;
                 currentWeapon.PickWeapon();
 
                 animator.SetBool("isAiming", true);
@@ -89,7 +89,7 @@ public class LorenzoController : MonoBehaviour
                 if(isShootingMode)
                     StartCoroutine(WaitAndPutWeapon());
                 isShootingMode = false;
-                speed = 1.5f;
+                speed = 3f;
                 animator.SetBool("isAiming", false);
             }
 
