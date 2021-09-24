@@ -5,9 +5,10 @@ using UnityEngine;
 public class Lorenzo
 {
     public int healthPoints, skillPoints;
-    //public List<
-
-    public static Lorenzo instance;
+    public List<Item> items;
+    public int coreItemCount;
+    public Weapon primaryWeapon, secondaryWeapon;
+    private static Lorenzo instance;
     public static Lorenzo GetInstance()
     {
         if (instance == null)
@@ -18,7 +19,10 @@ public class Lorenzo
 
     private Lorenzo()
     {
-
+        items = new List<Item>();
+        healthPoints = 1000;
+        skillPoints = 200;
+        coreItemCount = 0; // 0/9
     }
 
 }

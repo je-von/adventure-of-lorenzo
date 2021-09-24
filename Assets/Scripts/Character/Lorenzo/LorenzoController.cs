@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,20 +9,22 @@ public class LorenzoController : MonoBehaviour
     Animator animator;
     public Vector3 velocity;
     public float speed = 3f, turnSmoothTime = 0.1f, turnSmoothVelocity;
-    public Weapon primaryWeapon, secondaryWeapon, currentWeapon;
+    public Weapon currentWeapon;
     public GameObject rightHand,leftHand;
     public Transform cam;
     public bool isShootingMode;
+    public GameObject exploreCam, shootingCamR, shootingCamL;
+
     // Start is called before the first frame update
     void Start()
     {
         isShootingMode = false;
 
-        primaryWeapon = new Weapon(GameObject.Find("Primary Weapon"), rightHand, new Vector3(0.064f, 0.158f, -0.025f), new Vector3(-38.653f, 97.681f, 311.494f));
+        Lorenzo.GetInstance().primaryWeapon = new Weapon(GameObject.Find("Primary Weapon"), rightHand, new Vector3(0.0824f, 0.1932f, -0.0396f), new Vector3(-97.142f, 49.003f, 160.291f), 150, 15, 40, 10, 10);
 
-        secondaryWeapon = new Weapon(GameObject.Find("Secondary Weapon"), leftHand, new Vector3(0.0111f, -0.068f, 0.087f), new Vector3(-204.06f, 0f, -129.7f));
+        Lorenzo.GetInstance().secondaryWeapon = new Weapon(GameObject.Find("Secondary Weapon"), leftHand, new Vector3(0.0310f, 0.00602f, -0.0749f), new Vector3(-225.829f, -191.532f, -104.281f), 150, 10, 25, 5, 15);
 
-        currentWeapon = primaryWeapon;
+        currentWeapon = Lorenzo.GetInstance().primaryWeapon;
 
         Cursor.lockState = CursorLockMode.Locked;
         controller = GetComponent<CharacterController>();
@@ -35,6 +38,31 @@ public class LorenzoController : MonoBehaviour
     {
         CheckAiming();
         StartCoroutine(ChangeWeapon());
+        ChangeShootingCamera();
+
+        if (isShootingMode)
+        {
+            var mouseX = Input.GetAxis("Mouse X");
+            var mouseY = Input.GetAxis("Mouse Y");
+
+            var weaponRotation = Vector3.up * mouseY;
+
+            transform.Rotate(new Vector3(0, mouseX, 0));
+            //if (playerRotation.magnitude > 0.1f)
+            //{
+                //var targetRotation = Quaternion.LookRotation(playerRotation, Vector3.up);
+                //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed * Time.deltaTime);
+
+
+            //}
+
+            //if(weaponRotation.magnitude > 0.1f && animator.GetBool("isAiming"))
+            //{
+            //    var targetRotation = Quaternion.LookRotation(weaponRotation, Vector3.up);
+            //    currentWeapon.weaponObj.transform.rotation = Quaternion.Slerp(currentWeapon.weaponObj.transform.rotation, targetRotation, speed * Time.deltaTime);
+            //}
+
+        }
 
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
@@ -43,7 +71,8 @@ public class LorenzoController : MonoBehaviour
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            if(!isShootingMode)
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
@@ -67,17 +96,32 @@ public class LorenzoController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    //private void ChangeWeapon()
-    //{
-        
-    //}
+    private void ChangeShootingCamera()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab) && isShootingMode)
+        {
+            if (shootingCamR.activeInHierarchy)
+            {
+                shootingCamL.SetActive(true);
+                shootingCamR.SetActive(false);
+            }
+            else
+            {
+                shootingCamR.SetActive(true);
+                shootingCamL.SetActive(false);
+            }
+        }
+    }
 
     private void CheckAiming()
     {
-        if (Input.GetKeyUp(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             if (!animator.GetBool("isAiming") && !isShootingMode)
             {
+                shootingCamR.SetActive(true);
+                exploreCam.SetActive(false);
+
                 isShootingMode = true;
                 speed = 2f;
                 currentWeapon.PickWeapon();
@@ -86,7 +130,12 @@ public class LorenzoController : MonoBehaviour
             }
             else
             {
-                if(isShootingMode)
+                exploreCam.SetActive(true);
+                shootingCamR.SetActive(false);
+                shootingCamL.SetActive(false);
+
+
+                if (isShootingMode)
                     StartCoroutine(WaitAndPutWeapon());
                 isShootingMode = false;
                 speed = 3f;
@@ -107,31 +156,31 @@ public class LorenzoController : MonoBehaviour
 
     IEnumerator ChangeWeapon()
     {
-        if (Input.GetKeyUp(KeyCode.Q) && isShootingMode)
+        if (Input.GetKeyDown(KeyCode.Q) && isShootingMode)
         {
-            if (animator.GetBool("isAiming") && currentWeapon != primaryWeapon)
+            if (animator.GetBool("isAiming") && currentWeapon != Lorenzo.GetInstance().primaryWeapon)
             {
                 StartCoroutine(WaitAndPutWeapon());
                 animator.SetBool("isAiming", false);
                 yield return new WaitForSeconds(0.25f);
             }
-            currentWeapon = primaryWeapon;
+            currentWeapon = Lorenzo.GetInstance().primaryWeapon;
             currentWeapon.PickWeapon();
             animator.SetBool("isAiming", true);
         }
-        else if (Input.GetKeyUp(KeyCode.E) && isShootingMode)
+        else if (Input.GetKeyDown(KeyCode.E) && isShootingMode)
         {
-            if (animator.GetBool("isAiming") && currentWeapon != secondaryWeapon)
+            if (animator.GetBool("isAiming") && currentWeapon != Lorenzo.GetInstance().secondaryWeapon)
             {
                 StartCoroutine(WaitAndPutWeapon());
                 animator.SetBool("isAiming", false);
                 yield return new WaitForSeconds(0.25f);
             }
-            currentWeapon = secondaryWeapon;
+            currentWeapon = Lorenzo.GetInstance().secondaryWeapon;
             currentWeapon.PickWeapon();
             animator.SetBool("isAiming", true);
         }
-        else if (Input.GetKeyUp(KeyCode.X) && isShootingMode)
+        else if (Input.GetKeyDown(KeyCode.X) && isShootingMode)
         {
             if (animator.GetBool("isAiming"))
             {
