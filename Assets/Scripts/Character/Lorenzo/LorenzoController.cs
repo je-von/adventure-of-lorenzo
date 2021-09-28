@@ -15,9 +15,13 @@ public class LorenzoController : MonoBehaviour
     public bool isShootingMode;
     public GameObject exploreCam, shootingCamR, shootingCamL;
 
+    RaycastWeapon rw;
+
     // Start is called before the first frame update
     void Start()
     {
+        rw = GetComponentInChildren<RaycastWeapon>();
+
         isShootingMode = false;
 
         Lorenzo.GetInstance().primaryWeapon = new Weapon(GameObject.Find("Primary Weapon"), rightHand, new Vector3(0.0824f, 0.1932f, -0.0396f), new Vector3(-97.142f, 49.003f, 160.291f), 150, 15, 40, 10, 10);
@@ -118,18 +122,30 @@ public class LorenzoController : MonoBehaviour
                     shootingCamL.SetActive(false);
                 }
             }
-            if (Input.GetMouseButtonDown(1))
-            {
-                var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
-                currentCam.SetActive(false);
-                currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 1.6f;
-                currentCam.SetActive(true);
+            //if (Input.GetMouseButtonDown(1))
+            //{
+            //    var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
+            //    currentCam.SetActive(false);
+            //    currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 1.6f;
+            //    currentCam.SetActive(true);
 
-            }
-            if (Input.GetMouseButtonUp(1))
+            //}
+            //if (Input.GetMouseButtonUp(1))
+            //{
+            //    var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
+            //    currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 3f;
+            //}
+
+            if(isShootingMode && animator.GetBool("isAiming"))
             {
-                var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
-                currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 3f;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    rw.StartShooting();
+                }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    rw.StopShooting();
+                }
             }
         }
         
