@@ -11,6 +11,11 @@ public class KyleController : MonoBehaviour
 
     public SpriteRenderer coreItem;
 
+    public GameObject patrolPoint;
+
+    Animator animator;
+    //private NavMeshAgent agent;
+
     //public GameObject healthBar;
     public Slider slider;
     // Start is called before the first frame update
@@ -18,11 +23,17 @@ public class KyleController : MonoBehaviour
     {
         kyle = new Kyle();
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+        //agent = GetComponent<NavMeshAgent>();
+
+        StartCoroutine(MoveKyle());
     }
 
     // Update is called once per frame
     void Update()
     {
+        //agent.destination = patrolPoint.transform.position;
+
         //Debug.Log("-----" + this.gameObject);
         slider.value = (float)kyle.healthPoints / (float)kyle.maxHealth;
 
@@ -37,10 +48,33 @@ public class KyleController : MonoBehaviour
 
         
 
-        //var direction = Vector3.forward;
-        //float targetAngle = Mathf.Atan2(direction.x, direction.z);
-        //Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        
+    }
 
-        //controller.Move(moveDirection.normalized * 3f * Time.deltaTime);
+    public float turnSmoothVelocity;
+    IEnumerator MoveKyle()
+    {
+        animator.SetBool("isWalking", true);
+
+        int i = 0;
+        Vector3 direction = Vector3.forward;
+        
+        while (true)
+        {
+            //Debug.Log(i);
+            if (i > 200)
+            {
+                i = 0;
+                direction = -direction;
+                //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction, Vector3.up), 2f * Time.deltaTime);
+            }
+            float targetAngle = Mathf.Atan2(direction.x, direction.z);
+            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * direction;
+            controller.Move(moveDirection.normalized * 2f * Time.deltaTime);
+            i++;
+
+            yield return null;
+        }
+
     }
 }
