@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KyleController : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class KyleController : MonoBehaviour
     private CharacterController controller;
 
     public SpriteRenderer coreItem;
+
+    //public GameObject healthBar;
+    public Slider slider;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +23,8 @@ public class KyleController : MonoBehaviour
     void Update()
     {
         //Debug.Log("-----" + this.gameObject);
+        slider.value = (float)kyle.healthPoints / (float)kyle.maxHealth;
+
         if (kyle.healthPoints <= 0)
         {
             Destroy(this.gameObject);

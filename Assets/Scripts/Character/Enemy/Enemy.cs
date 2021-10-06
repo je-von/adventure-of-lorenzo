@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy
 {
-    public int healthPoints;
+    public int healthPoints, maxHealth;
     public float shootingInterval;
     public int bulletDamage;
     public int bulletsReload;
@@ -13,7 +13,7 @@ public class Enemy
 
     public Enemy(int healthPoints, float shootingInterval, int bulletDamage, int bulletsReload, int respawnTime, float itemPossibilty)
     {
-        this.healthPoints = healthPoints;
+        this.healthPoints = this.maxHealth = healthPoints;
         this.shootingInterval = shootingInterval;
         this.bulletDamage = bulletDamage;
         this.bulletsReload = bulletsReload;
