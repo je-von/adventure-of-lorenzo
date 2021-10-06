@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class KyleController : MonoBehaviour
@@ -33,6 +34,8 @@ public class KyleController : MonoBehaviour
             var c = Instantiate(coreItem, pos, Quaternion.identity);
             //c.a
         }
+
+        
 
         //var direction = Vector3.forward;
         //float targetAngle = Mathf.Atan2(direction.x, direction.z);
