@@ -6,6 +6,8 @@ public class KyleController : MonoBehaviour
 {
     public Kyle kyle;
     private CharacterController controller;
+
+    public SpriteRenderer coreItem;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,10 @@ public class KyleController : MonoBehaviour
         if (kyle.healthPoints <= 0)
         {
             Destroy(this.gameObject);
+            Vector3 pos = this.transform.position;
+            pos.y = 1;
+            var c = Instantiate(coreItem, pos, Quaternion.identity);
+            //c.a
         }
 
         //var direction = Vector3.forward;

@@ -254,4 +254,15 @@ public class LorenzoController : MonoBehaviour
 
         //animator.SetBool("isAiming", !animator.GetBool("isAiming"));
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        //controller.co
+        if (hit.gameObject.tag == "CORE ITEM")
+        {
+        //Debug.Log(hit.gameObject.name);
+            Destroy(hit.gameObject);
+            Lorenzo.GetInstance().coreItemCount++;
+        }
+    }
 }
