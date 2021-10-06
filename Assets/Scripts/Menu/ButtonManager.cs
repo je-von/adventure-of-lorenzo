@@ -22,7 +22,14 @@ public class ButtonManager : MonoBehaviour
 
     public void ShowGameMenu()
     {
-        SceneManager.LoadScene(sceneName: "GameScene");
+        StartCoroutine(LoadGameScene());
+    }
+
+    IEnumerator LoadGameScene()
+    {
+        SceneManager.LoadScene(sceneName: "GameScene", LoadSceneMode.Single);
+        yield return 0;
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("GameScene"));
     }
 
     public void ExitGame()
