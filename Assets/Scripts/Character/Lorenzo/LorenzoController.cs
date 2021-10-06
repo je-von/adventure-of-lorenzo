@@ -122,21 +122,22 @@ public class LorenzoController : MonoBehaviour
                     shootingCamL.SetActive(false);
                 }
             }
-            //if (Input.GetMouseButtonDown(1))
-            //{
-            //    var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
-            //    currentCam.SetActive(false);
-            //    currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 1.6f;
-            //    currentCam.SetActive(true);
+            //zoom kamera
+            if (Input.GetMouseButtonDown(1))
+            {
+                var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
+                currentCam.SetActive(false);
+                currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 1.6f;
+                currentCam.SetActive(true);
 
-            //}
-            //if (Input.GetMouseButtonUp(1))
-            //{
-            //    var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
-            //    currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 3f;
-            //}
+            }
+            if (Input.GetMouseButtonUp(1))
+            {
+                var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
+                currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 3f;
+            }
 
-            if(isShootingMode && animator.GetBool("isAiming"))
+            if (isShootingMode && animator.GetBool("isAiming"))
             {
                 if (Input.GetMouseButtonDown(0))
                 {

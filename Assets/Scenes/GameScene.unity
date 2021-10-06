@@ -1410,9 +1410,9 @@ MonoBehaviour:
   m_YAxis:
     Value: 0.5
     m_SpeedMode: 0
-    m_MaxSpeed: 0
-    m_AccelTime: 0
-    m_DecelTime: 0
+    m_MaxSpeed: 4
+    m_AccelTime: 0.1
+    m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
     m_InvertInput: 0
@@ -1426,7 +1426,7 @@ MonoBehaviour:
       m_LegacyHeadingDefinition: -1
       m_LegacyVelocityFilterStrength: -1
   m_YAxisRecentering:
-    m_enabled: 1
+    m_enabled: 0
     m_WaitTime: 0
     m_RecenteringTime: 0
     m_LegacyHeadingDefinition: -1
@@ -12962,6 +12962,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &412839325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
+  m_PrefabInstance: {fileID: 1236755424}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &412839326
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412839325}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eabbf567f28ec3343a90894132d05150, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!143 &412839328
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412839325}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.86
+  m_Radius: 0.21
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.93, z: 0}
 --- !u!4 &413235219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4736128562167868, guid: 73820b29499cca44d85acf18ffe6466e, type: 3}
@@ -17716,7 +17758,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 586218127}
-  m_LocalRotation: {x: 0.04728224, y: 0.9521942, z: 0.22897659, w: -0.1966222}
+  m_LocalRotation: {x: 0.04728225, y: 0.9521942, z: 0.22897659, w: -0.19662216}
   m_LocalPosition: {x: -92.259026, y: 0.9157604, z: -55.62524}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -25526,6 +25568,7 @@ MonoBehaviour:
   hitEffect: {fileID: 1880249207650466864}
   raycastSource: {fileID: 257499571}
   raycastDest: {fileID: 483561315}
+  tracer: {fileID: 3253245946345145235, guid: 02ac4e88c68ef794d854a5e82e17b636, type: 3}
 --- !u!1001 &862681578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31704,7 +31747,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099150354}
-  m_LocalRotation: {x: -0.033308182, y: -0.13922712, z: -0.0046857162, w: 0.98968905}
+  m_LocalRotation: {x: -0.033308186, y: -0.13922712, z: -0.0046857162, w: 0.98968905}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -35273,7 +35316,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robot Kyle
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -5716681864270162303, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
 --- !u!4 &1239026059 stripped
 Transform:
@@ -38013,7 +38057,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334425315}
-  m_LocalRotation: {x: -0.05130461, y: -0.13911888, z: -0.0072174123, w: 0.9889195}
+  m_LocalRotation: {x: -0.051304616, y: -0.13911885, z: -0.007217412, w: 0.9889195}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -43998,7 +44042,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1531569628}
-  m_LocalRotation: {x: 0.049348556, y: 0.9497321, z: 0.2389833, w: -0.19611375}
+  m_LocalRotation: {x: 0.04934855, y: 0.9497321, z: 0.2389833, w: -0.19611374}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -50582,12 +50626,12 @@ MonoBehaviour:
   m_YAxis:
     Value: 0.5
     m_SpeedMode: 0
-    m_MaxSpeed: 0
-    m_AccelTime: 0
-    m_DecelTime: 0
+    m_MaxSpeed: 4
+    m_AccelTime: 0.1
+    m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
-    m_InvertInput: 0
+    m_InvertInput: 1
     m_MinValue: 0
     m_MaxValue: 1
     m_Wrap: 0
@@ -50598,7 +50642,7 @@ MonoBehaviour:
       m_LegacyHeadingDefinition: -1
       m_LegacyVelocityFilterStrength: -1
   m_YAxisRecentering:
-    m_enabled: 1
+    m_enabled: 0
     m_WaitTime: 0
     m_RecenteringTime: 0
     m_LegacyHeadingDefinition: -1
@@ -55526,15 +55570,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4021266016307886, guid: 392a05bd229c33043ae112a856120172, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.095721
+      value: -0.0957
       objectReference: {fileID: 0}
     - target: {fileID: 4021266016307886, guid: 392a05bd229c33043ae112a856120172, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.025142
+      value: -0.0251
       objectReference: {fileID: 0}
     - target: {fileID: 4021266016307886, guid: 392a05bd229c33043ae112a856120172, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.046613
+      value: -0.046
       objectReference: {fileID: 0}
     - target: {fileID: 4021266016307886, guid: 392a05bd229c33043ae112a856120172, type: 3}
       propertyPath: m_LocalRotation.w
