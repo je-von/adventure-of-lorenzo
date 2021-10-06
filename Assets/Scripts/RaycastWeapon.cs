@@ -13,7 +13,7 @@ public class RaycastWeapon : MonoBehaviour
 
     Ray ray;
     RaycastHit hitInfo;
-    public void StartShooting()
+    public GameObject StartShooting()
     {
         isShooting = true;
         flash.Emit(1);
@@ -25,14 +25,26 @@ public class RaycastWeapon : MonoBehaviour
         t.AddPosition(ray.origin);
         if(Physics.Raycast(ray, out hitInfo))
         {
-            //Debug.Log(hitInfo.collider.gameObject.name);
+            Debug.Log(hitInfo.collider.gameObject.name);
+
             //Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
             hitEffect.transform.position = hitInfo.point;
             hitEffect.transform.forward = hitInfo.normal;
             hitEffect.Emit(1);
 
             t.transform.position = hitInfo.point;
+
+            //if(hitInfo.collider.gameObject.name == "Robot Kyle")
+            //{
+            //    KyleController kc = hitInfo.collider.gameObject.GetComponentInChildren<KyleController>();
+            //    kc.kyle
+
+            //}
+
+            return hitInfo.collider.gameObject;
         }
+
+        return null;
     }
 
     public void StopShooting()

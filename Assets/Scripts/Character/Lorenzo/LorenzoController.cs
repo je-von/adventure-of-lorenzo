@@ -20,7 +20,7 @@ public class LorenzoController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rw = GetComponentInChildren<RaycastWeapon>();
+        //rw = GetComponentInChildren<RaycastWeapon>();
 
         isShootingMode = false;
 
@@ -53,7 +53,9 @@ public class LorenzoController : MonoBehaviour
 
             transform.Rotate(new Vector3(0, mouseX, 0));
 
-            currentWeapon.weaponObj.transform.Rotate(new Vector3(-mouseY, 0, 0));
+            //currentWeapon.weaponObj.transform.Rotate(new Vector3(-mouseY, 0, 0));
+            currentWeapon.RotateWeapon(mouseY);
+
             //rightHand.transform.Rotate(new Vector3(-mouseY, 0, 0));
             //leftHand.transform.Rotate(new Vector3(-mouseY, 0, 0));
 
@@ -139,9 +141,22 @@ public class LorenzoController : MonoBehaviour
 
             if (isShootingMode && animator.GetBool("isAiming"))
             {
+                rw = currentWeapon.weaponObj.GetComponentInChildren<RaycastWeapon>();
                 if (Input.GetMouseButtonDown(0))
                 {
-                    rw.StartShooting();
+                    GameObject hitObject = rw.StartShooting();
+                    if(hitObject != null)
+                    {
+                        if(hitObject.name == "Robot Kyle")
+                        {
+                            KyleController kc = hitObject.GetComponentInChildren<KyleController>();
+                            Debug.Log(kc.kyle.healthPoints + " - " + currentWeapon.damage + " = " + (kc.kyle.healthPoints - currentWeapon.damage));
+                            kc.kyle.healthPoints -= currentWeapon.damage;
+
+                            Debug.Log(kc.kyle.healthPoints);
+
+                        }
+                    }
                 }
                 if (Input.GetMouseButtonUp(0))
                 {

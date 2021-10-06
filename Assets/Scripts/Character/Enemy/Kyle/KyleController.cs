@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class KyleController : MonoBehaviour
 {
-    protected CharacterController controller;
+    public Kyle kyle;
+    private CharacterController controller;
     // Start is called before the first frame update
     void Start()
     {
+        kyle = new Kyle();
         controller = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        var direction = Vector3.forward;
-        float targetAngle = Mathf.Atan2(direction.x, direction.z);
-        Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        //Debug.Log("-----" + this.gameObject);
+        if (kyle.healthPoints <= 0)
+        {
+            Destroy(this.gameObject);
+        }
 
-        controller.Move(moveDirection.normalized * 3f * Time.deltaTime);
+        //var direction = Vector3.forward;
+        //float targetAngle = Mathf.Atan2(direction.x, direction.z);
+        //Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+
+        //controller.Move(moveDirection.normalized * 3f * Time.deltaTime);
     }
 }
