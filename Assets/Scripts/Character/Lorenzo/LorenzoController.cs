@@ -24,9 +24,9 @@ public class LorenzoController : MonoBehaviour
 
         isShootingMode = false;
 
-        Lorenzo.GetInstance().primaryWeapon = new Weapon(GameObject.Find("Primary Weapon"), rightHand, new Vector3(0.0824f, 0.1932f, -0.0396f), new Vector3(-97.142f, 49.003f, 160.291f), 150, 15, 40, 10, 10);
+        Lorenzo.GetInstance().primaryWeapon = new Weapon(GameObject.Find("Primary Weapon"), rightHand, new Vector3(0.0824f, 0.1932f, -0.0396f), new Vector3(-97.142f, 49.003f, 160.291f), 150, 15, 40, 10, 10, true);
 
-        Lorenzo.GetInstance().secondaryWeapon = new Weapon(GameObject.Find("Secondary Weapon"), leftHand, new Vector3(0.0310f, 0.00602f, -0.0749f), new Vector3(-225.829f, -191.532f, -104.281f), 150, 10, 25, 5, 15);
+        Lorenzo.GetInstance().secondaryWeapon = new Weapon(GameObject.Find("Secondary Weapon"), leftHand, new Vector3(0.0310f, 0.00602f, -0.0749f), new Vector3(-225.829f, -191.532f, -104.281f), 150, 10, 25, 5, 15, false);
 
         currentWeapon = Lorenzo.GetInstance().primaryWeapon;
 
@@ -145,14 +145,15 @@ public class LorenzoController : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     GameObject hitObject = rw.StartShooting();
-                    if(hitObject != null)
+                    currentWeapon.currentAmmo--;
+                    if (hitObject != null)
                     {
                         if(hitObject.name == "Robot Kyle")
                         {
                             KyleController kc = hitObject.GetComponentInChildren<KyleController>();
                             Debug.Log(kc.kyle.healthPoints + " - " + currentWeapon.damage + " = " + (kc.kyle.healthPoints - currentWeapon.damage));
                             kc.kyle.healthPoints -= currentWeapon.damage;
-
+                            
                             Debug.Log(kc.kyle.healthPoints);
 
                         }
@@ -216,24 +217,28 @@ public class LorenzoController : MonoBehaviour
         {
             if (animator.GetBool("isAiming") && currentWeapon != Lorenzo.GetInstance().primaryWeapon)
             {
+                currentWeapon.isUsed = false;
                 StartCoroutine(WaitAndPutWeapon());
                 animator.SetBool("isAiming", false);
                 yield return new WaitForSeconds(0.25f);
             }
             currentWeapon = Lorenzo.GetInstance().primaryWeapon;
             currentWeapon.PickWeapon();
+            currentWeapon.isUsed = true;
             animator.SetBool("isAiming", true);
         }
         else if (Input.GetKeyDown(KeyCode.E) && isShootingMode)
         {
             if (animator.GetBool("isAiming") && currentWeapon != Lorenzo.GetInstance().secondaryWeapon)
             {
+                currentWeapon.isUsed = false;
                 StartCoroutine(WaitAndPutWeapon());
                 animator.SetBool("isAiming", false);
                 yield return new WaitForSeconds(0.25f);
             }
             currentWeapon = Lorenzo.GetInstance().secondaryWeapon;
             currentWeapon.PickWeapon();
+            currentWeapon.isUsed = true;
             animator.SetBool("isAiming", true);
         }
         else if (Input.GetKeyDown(KeyCode.X) && isShootingMode)

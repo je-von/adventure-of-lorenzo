@@ -5,19 +5,21 @@ using UnityEngine;
 public class Weapon
 {
     public Transform initialPosition, pickPosition;
-    public int intialSpareAmmo, fireRate, bulletSpeed, bulletDrop, damage;
+    public int maxAmmo, currentAmmo, fireRate, bulletSpeed, bulletDrop, damage;
 
     public GameObject weaponObj;
 
+    public bool isUsed;
     public Weapon(GameObject weaponObj, GameObject hand, Vector3 position, Vector3 rotation,
-                  int intialSpareAmmo, int fireRate, int bulletSpeed, int bulletDrop, int damage)
+                  int currentAmmo, int fireRate, int bulletSpeed, int bulletDrop, int damage, bool isUsed)
     {
-        this.intialSpareAmmo = intialSpareAmmo;
+        this.maxAmmo = this.currentAmmo = currentAmmo;
         this.fireRate = fireRate;
         this.bulletSpeed = bulletSpeed;
         this.bulletDrop = bulletDrop;
         this.damage = damage;
         this.weaponObj = weaponObj;
+        this.isUsed = isUsed;
 
         initialPosition = new GameObject().transform;
         initialPosition.parent = weaponObj.transform.parent;
