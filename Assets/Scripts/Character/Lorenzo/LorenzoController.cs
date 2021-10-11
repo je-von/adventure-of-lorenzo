@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LorenzoController : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class LorenzoController : MonoBehaviour
     public Weapon currentWeapon;
     public GameObject rightHand,leftHand;
     public Transform cam;
-    public bool isShootingMode;
-    public GameObject exploreCam, shootingCamR, shootingCamL;
+    public bool isShootingMode, isPaused;
+    public GameObject exploreCam, shootingCamR, shootingCamL, pausePanel;
 
     RaycastWeapon rw;
 
@@ -21,6 +22,8 @@ public class LorenzoController : MonoBehaviour
     void Start()
     {
         //rw = GetComponentInChildren<RaycastWeapon>();
+
+        isPaused = false;
 
         isShootingMode = false;
 
@@ -43,6 +46,22 @@ public class LorenzoController : MonoBehaviour
         CheckAiming();
         StartCoroutine(ChangeWeapon());
         ChangeShootingCamera();
+
+        var esc = Input.GetKeyDown(KeyCode.Escape);
+
+        if (esc)
+        {
+            if (!isPaused)
+            {
+                PauseMenu();
+            }
+            else
+            {
+                ResumeMenu();
+            }
+
+        }
+
 
         if (isShootingMode)
         {
@@ -105,6 +124,27 @@ public class LorenzoController : MonoBehaviour
         }
         velocity.y -= 9.81f * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void PauseMenu()
+    {
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+        isPaused = true;
+        pausePanel.SetActive(true);
+    }
+
+    public void ResumeMenu()
+    {
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        isPaused = false;
+        pausePanel.SetActive(false);
+    }
+
+    public void ShowMainMenu()
+    {
+        SceneManager.LoadScene(sceneName: "MainScene", LoadSceneMode.Single);
     }
 
     private void ChangeShootingCamera()
