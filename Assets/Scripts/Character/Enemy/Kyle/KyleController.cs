@@ -26,7 +26,7 @@ public class KyleController : MonoBehaviour
         animator = GetComponent<Animator>();
         //agent = GetComponent<NavMeshAgent>();
 
-        StartCoroutine(MoveKyle());
+        //StartCoroutine(MoveKyle());
     }
 
     // Update is called once per frame

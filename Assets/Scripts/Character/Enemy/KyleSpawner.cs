@@ -24,9 +24,13 @@ public class KyleSpawner : MonoBehaviour
     void Update()
     {
         //k.GetComponent<NavMeshAgent>().updatePosition = true;
-        k.GetComponent<NavMeshAgent>().destination = patrolPoints[1].transform.position;
+        Vector3 p = patrolPoints[1].transform.position;
+        p.y = 0;
 
-        //Debug.Log(k.GetComponent<NavMeshAgent>().destination);
+        k.GetComponent<NavMeshAgent>().destination = p;
+
+        Debug.Log(p);
+        Debug.Log(k.GetComponent<NavMeshAgent>().remainingDistance);
         //k.GetComponent<NavMeshAgent>().Move(transform.forward * Time.deltaTime);
         //k.GetComponent<CharacterController>().Move(-transform.forward * Time.deltaTime);
         //patrolPoints.
@@ -40,7 +44,9 @@ public class KyleSpawner : MonoBehaviour
         //Debug.Log(pos);
         //k.GetComponent<NavMeshAgent>().nextPosition = pos;
 
-        //k.GetComponent<NavMeshAgent>().SetDestination(pos);
+        k.GetComponent<NavMeshAgent>().SetDestination(patrolPoints[1].transform.position);
+
+        Debug.Log("status:" + k.GetComponent<NavMeshAgent>().pathStatus);
     }
 
 

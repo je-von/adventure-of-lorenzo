@@ -133,7 +133,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: eabbf567f28ec3343a90894132d05150, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 0
@@ -170,7 +170,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coreItem: {fileID: 7895696998079944299, guid: 997c50e1146941541a587714c839902f, type: 3}
+  patrolPoint: {fileID: 0}
   slider: {fileID: 5927546210495331725}
+  turnSmoothVelocity: 0
 --- !u!195 &8844359385583290249
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -181,7 +183,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 3.62
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -190,7 +192,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1 &5927546208672593994
