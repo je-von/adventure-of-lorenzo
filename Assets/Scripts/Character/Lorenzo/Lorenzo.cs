@@ -8,6 +8,9 @@ public class Lorenzo
     public List<Item> items;
     public int coreItemCount;
     public Weapon primaryWeapon, secondaryWeapon;
+
+    public GameObject lorenzoObject;
+
     private static Lorenzo instance;
     public static Lorenzo GetInstance()
     {

@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - CORE ITEM
+  - KYLE
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - LORENZO
   - Water
   - UI
   - 

@@ -27,6 +27,8 @@ public class LorenzoController : MonoBehaviour
 
         isShootingMode = false;
 
+        Lorenzo.GetInstance().lorenzoObject = this.gameObject;
+
         Lorenzo.GetInstance().primaryWeapon = new Weapon(GameObject.Find("Primary Weapon"), rightHand, new Vector3(0.0824f, 0.1932f, -0.0396f), new Vector3(-97.142f, 49.003f, 160.291f), 150, 15, 40, 10, 10, true);
 
         Lorenzo.GetInstance().secondaryWeapon = new Weapon(GameObject.Find("Secondary Weapon"), leftHand, new Vector3(0.0310f, 0.00602f, -0.0749f), new Vector3(-225.829f, -191.532f, -104.281f), 150, 10, 25, 5, 15, false);
@@ -188,7 +190,11 @@ public class LorenzoController : MonoBehaviour
                     currentWeapon.currentAmmo--;
                     if (hitObject != null)
                     {
-                        if(hitObject.name == "Robot Kyle")
+                        Debug.Log(hitObject.name + " | " + hitObject.tag);
+                        //Debug.Log(hitObject.name);
+
+
+                        if (hitObject.tag == "KYLE")
                         {
                             KyleController kc = hitObject.GetComponentInChildren<KyleController>();
                             Debug.Log(kc.kyle.healthPoints + " - " + currentWeapon.damage + " = " + (kc.kyle.healthPoints - currentWeapon.damage));

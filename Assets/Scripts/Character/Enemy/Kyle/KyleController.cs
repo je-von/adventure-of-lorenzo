@@ -17,16 +17,31 @@ public class KyleController : MonoBehaviour
     //private NavMeshAgent agent;
 
     //public GameObject healthBar;
+
+    public Transform patrolStart;
+    public Transform patrolEnd;
+
     public Slider slider;
+
+    public LayerMask playerLayer;
+
+    Vector3 destination;
+    NavMeshAgent agent;
+
+    bool isAiming;
     // Start is called before the first frame update
     void Start()
     {
+        isAiming = false;
+
+        agent = GetComponent<NavMeshAgent>();
         kyle = new Kyle();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         //agent = GetComponent<NavMeshAgent>();
 
-        //StartCoroutine(MoveKyle());
+        StartCoroutine(MoveKyle());
+        StartCoroutine(CheckPlayerInRange());
     }
 
     // Update is called once per frame
@@ -45,10 +60,57 @@ public class KyleController : MonoBehaviour
             var c = Instantiate(coreItem, pos, Quaternion.identity);
             //c.a
         }
-
         
 
-        
+        //if(Physics.CheckSphere(transform.position, 10f, playerLayer))
+
+
+
+    }
+
+    IEnumerator CheckPlayerInRange()
+    {
+        while (true)
+        {
+            yield return null;
+
+            Collider[] collider = Physics.OverlapSphere(transform.position, 5f, playerLayer);
+            Debug.Log(collider.Length);
+
+            if (!isAiming)
+            {
+                if (collider.Length > 0 && collider[0].gameObject.name == "Lorenzo")
+                {
+                    destination = collider[0].gameObject.transform.position;
+
+                    //yield return new WaitForSeconds(1f);
+
+                    agent.updatePosition = false;
+                    //agent.isStopped = true;
+                    animator.SetBool("isWalking", false);
+                    //Debug.Log("player masuk enemy range");
+                    isAiming = true;
+                }
+                else
+                {
+                    //animator.SetBool("isWalking", true);
+                    //agent.updatePosition = true;
+                }
+            }
+            else
+            {
+                if(collider.Length <= 0)
+                {
+                    //agent.isStopped = false;
+                    agent.updatePosition = true;
+                    animator.SetBool("isWalking", true);
+                    isAiming = false;
+                }
+            }
+
+            
+
+        }
     }
 
     public float turnSmoothVelocity;
@@ -56,24 +118,15 @@ public class KyleController : MonoBehaviour
     {
         animator.SetBool("isWalking", true);
 
-        int i = 0;
-        Vector3 direction = Vector3.forward;
+        destination = patrolStart.position;
+
         
         while (true)
         {
-            //Debug.Log(i);
-            if (i > 200)
-            {
-                i = 0;
-                direction = -direction;
-                //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction, Vector3.up), 2f * Time.deltaTime);
-            }
-            float targetAngle = Mathf.Atan2(direction.x, direction.z);
-            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * direction;
-            controller.Move(moveDirection.normalized * 2f * Time.deltaTime);
-            i++;
-
             yield return null;
+            if (agent.remainingDistance <= 0)
+                destination = (destination == patrolStart.position) ? patrolEnd.position : patrolStart.position;
+            agent.SetDestination(destination);
         }
 
     }

@@ -8,29 +8,56 @@ public class KyleSpawner : MonoBehaviour
     public List<GameObject> patrolPoints;
     public GameObject spawnPoint;
 
-    public GameObject kyle, k;
+    public GameObject kyle;
 
     // Start is called before the first frame update
     void Start()
     {
         //var k = Instantiate(kyle, spawnPoint.transform.position, Quaternion.identity);
-        k = Instantiate(kyle, spawnPoint.transform.position, Quaternion.identity);
+
+        foreach (GameObject p in patrolPoints)
+        {
+            Transform patrolStart = p.transform.GetChild(0);
+            Transform patrolEnd = p.transform.GetChild(1);
+
+
+            GameObject k = Instantiate(kyle, spawnPoint.transform.position, Quaternion.identity);
+            k.GetComponent<KyleController>().patrolStart = patrolStart;
+            k.GetComponent<KyleController>().patrolEnd = patrolEnd;
+
+            k.GetComponent<NavMeshAgent>().SetDestination(patrolStart.position);
+            //k.GetComponent<NavMeshAgent>().SetDestination(p.transform.position);
+
+        }
+
+        //StartCoroutine(SpawnPlayer());
+
         //k.GetComponent<NavMeshAgent>().destination = patrolPoints[1].transform.position;
         //k.GetComponent<NavMeshAgent>().Move(transform.position + (transform.position - patrolPoints[1].transform.position));
         //Debug.Log(k.GetComponent<NavMeshAgent>().destination);
+    }
+
+    IEnumerator SpawnPlayer()
+    {
+        foreach (GameObject p in patrolPoints)
+        {
+            yield return new WaitForSeconds(0.5f);
+            GameObject k = Instantiate(kyle, spawnPoint.transform.position, Quaternion.identity);
+            k.GetComponent<NavMeshAgent>().SetDestination(p.transform.position);
+        }
+
+        yield return null;
     }
 
     // Update is called once per frame
     void Update()
     {
         //k.GetComponent<NavMeshAgent>().updatePosition = true;
-        Vector3 p = patrolPoints[1].transform.position;
-        p.y = 0;
+        //Vector3 p = patrolPoints[1].transform.position;
+        //p.y = 0;
 
-        k.GetComponent<NavMeshAgent>().destination = p;
+        //k.GetComponent<NavMeshAgent>().destination = patrolPoints[1].transform.position;
 
-        Debug.Log(p);
-        Debug.Log(k.GetComponent<NavMeshAgent>().remainingDistance);
         //k.GetComponent<NavMeshAgent>().Move(transform.forward * Time.deltaTime);
         //k.GetComponent<CharacterController>().Move(-transform.forward * Time.deltaTime);
         //patrolPoints.
@@ -44,9 +71,9 @@ public class KyleSpawner : MonoBehaviour
         //Debug.Log(pos);
         //k.GetComponent<NavMeshAgent>().nextPosition = pos;
 
-        k.GetComponent<NavMeshAgent>().SetDestination(patrolPoints[1].transform.position);
+        
 
-        Debug.Log("status:" + k.GetComponent<NavMeshAgent>().pathStatus);
+        //Debug.Log("status:" + k.GetComponent<NavMeshAgent>().pathStatus);
     }
 
 
