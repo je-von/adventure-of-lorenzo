@@ -28,6 +28,9 @@ public class KyleController : MonoBehaviour
     Vector3 destination;
     NavMeshAgent agent;
 
+    public GameObject weapon;
+
+    RaycastWeapon rw;
     bool isAiming;
     // Start is called before the first frame update
     void Start()
@@ -42,6 +45,9 @@ public class KyleController : MonoBehaviour
 
         StartCoroutine(MoveKyle());
         StartCoroutine(CheckPlayerInRange());
+
+        rw = weapon.GetComponentInChildren<RaycastWeapon>();
+        
     }
 
     // Update is called once per frame
@@ -75,21 +81,29 @@ public class KyleController : MonoBehaviour
             yield return null;
 
             Collider[] collider = Physics.OverlapSphere(transform.position, 5f, playerLayer);
-            Debug.Log(collider.Length);
+            //Debug.Log(collider.Length);
 
             if (!isAiming)
             {
                 if (collider.Length > 0 && collider[0].gameObject.name == "Lorenzo")
                 {
-                    destination = collider[0].gameObject.transform.position;
+                    //destination = collider[0].gameObject.transform.position;
+                    agent.SetDestination(transform.position);
+                    transform.LookAt(collider[0].gameObject.transform.position);
 
                     //yield return new WaitForSeconds(1f);
 
-                    agent.updatePosition = false;
+                    //agent.updatePosition = false;
                     //agent.isStopped = true;
                     animator.SetBool("isWalking", false);
                     //Debug.Log("player masuk enemy range");
                     isAiming = true;
+
+                    rw.raycastDest = collider[0].gameObject.transform.Find("EnemyTarget");
+
+
+
+                    rw.StartShooting();
                 }
                 else
                 {
@@ -102,9 +116,16 @@ public class KyleController : MonoBehaviour
                 if(collider.Length <= 0)
                 {
                     //agent.isStopped = false;
-                    agent.updatePosition = true;
+                    //agent.updatePosition = true;
                     animator.SetBool("isWalking", true);
                     isAiming = false;
+                    rw.StopShooting();
+                }
+                else
+                {
+                    transform.LookAt(collider[0].gameObject.transform.position);
+                    yield return new WaitForSeconds(0.5f);
+                    rw.StartShooting();
                 }
             }
 
@@ -124,9 +145,12 @@ public class KyleController : MonoBehaviour
         while (true)
         {
             yield return null;
-            if (agent.remainingDistance <= 0)
-                destination = (destination == patrolStart.position) ? patrolEnd.position : patrolStart.position;
-            agent.SetDestination(destination);
+            if (!isAiming)
+            {
+                if (agent.remainingDistance <= 0)
+                    destination = (destination == patrolStart.position) ? patrolEnd.position : patrolStart.position;
+                agent.SetDestination(destination);
+            }
         }
 
     }

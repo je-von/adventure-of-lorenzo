@@ -15,6 +15,8 @@ public class RaycastWeapon : MonoBehaviour
     RaycastHit hitInfo;
     public GameObject StartShooting()
     {
+        Debug.Log("masukkk");
+
         isShooting = true;
         flash.Emit(1);
 
@@ -27,13 +29,19 @@ public class RaycastWeapon : MonoBehaviour
         {
             Debug.Log(hitInfo.collider.gameObject.name);
 
-            //Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
-            hitEffect.transform.position = hitInfo.point;
-            hitEffect.transform.forward = hitInfo.normal;
-            hitEffect.Emit(1);
+            Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
+
+            if(hitEffect != null)
+            {
+                hitEffect.transform.position = hitInfo.point;
+                hitEffect.transform.forward = hitInfo.normal;
+                hitEffect.Emit(1);
+
+            }
 
             t.transform.position = hitInfo.point;
 
+            //Debug.Log(hitInfo.collider.gameObject.name);
             //if(hitInfo.collider.gameObject.name == "Robot Kyle")
             //{
             //    KyleController kc = hitInfo.collider.gameObject.GetComponentInChildren<KyleController>();
