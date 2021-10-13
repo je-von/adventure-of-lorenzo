@@ -15,7 +15,7 @@ public class LorenzoController : MonoBehaviour
     public GameObject rightHand,leftHand;
     public Transform cam;
     public bool isShootingMode, isPaused;
-    public GameObject exploreCam, shootingCamR, shootingCamL, pausePanel;
+    public GameObject exploreCam, shootingCamR, shootingCamL, pausePanel, deathPanel;
     public Slider slider;
     RaycastWeapon rw;
 
@@ -47,7 +47,7 @@ public class LorenzoController : MonoBehaviour
     void Update()
     {
         slider.value = (float)Lorenzo.GetInstance().healthPoints / (float)Lorenzo.GetInstance().maxHealth;
-
+        CheckDeath();
         CheckAiming();
         StartCoroutine(ChangeWeapon());
         ChangeShootingCamera();
@@ -129,6 +129,21 @@ public class LorenzoController : MonoBehaviour
         }
         velocity.y -= 9.81f * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void CheckDeath()
+    {
+        if(Lorenzo.GetInstance().healthPoints <= 0)
+        {
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
+            deathPanel.SetActive(true);
+        }
+    }
+
+    public void RestartMenu()
+    {
+        SceneManager.LoadScene(sceneName: "GameScene", LoadSceneMode.Single);
     }
 
     public void PauseMenu()
