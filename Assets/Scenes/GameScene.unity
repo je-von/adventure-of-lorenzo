@@ -63416,6 +63416,7 @@ MonoBehaviour:
   shootingCamR: {fileID: 1780723353}
   shootingCamL: {fileID: 37138793}
   pausePanel: {fileID: 569817738}
+  slider: {fileID: 1123321005}
 --- !u!1 &1633638630
 GameObject:
   m_ObjectHideFlags: 0

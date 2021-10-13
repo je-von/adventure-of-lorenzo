@@ -27,9 +27,9 @@ public class RaycastWeapon : MonoBehaviour
         t.AddPosition(ray.origin);
         if(Physics.Raycast(ray, out hitInfo))
         {
-            Debug.Log(hitInfo.collider.gameObject.name);
+            //Debug.Log(hitInfo.collider.gameObject.name);
 
-            Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
+            //Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
 
             if(hitEffect != null)
             {

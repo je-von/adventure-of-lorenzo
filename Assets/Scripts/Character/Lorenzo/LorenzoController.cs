@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LorenzoController : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class LorenzoController : MonoBehaviour
     public Transform cam;
     public bool isShootingMode, isPaused;
     public GameObject exploreCam, shootingCamR, shootingCamL, pausePanel;
-
+    public Slider slider;
     RaycastWeapon rw;
 
     // Start is called before the first frame update
@@ -45,6 +46,8 @@ public class LorenzoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        slider.value = (float)Lorenzo.GetInstance().healthPoints / (float)Lorenzo.GetInstance().maxHealth;
+
         CheckAiming();
         StartCoroutine(ChangeWeapon());
         ChangeShootingCamera();

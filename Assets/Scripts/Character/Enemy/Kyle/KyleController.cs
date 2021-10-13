@@ -124,8 +124,17 @@ public class KyleController : MonoBehaviour
                 else
                 {
                     transform.LookAt(collider[0].gameObject.transform.position);
-                    yield return new WaitForSeconds(0.5f);
-                    rw.StartShooting();
+                    yield return new WaitForSeconds(kyle.shootingInterval);
+                    GameObject hitObject = rw.StartShooting();
+
+                    if(hitObject != null)
+                    {
+                        Debug.Log(hitObject.name);
+                        if(hitObject.name == "Lorenzo")
+                        {
+                            Lorenzo.GetInstance().healthPoints -= kyle.bulletDamage;
+                        }
+                    }
                 }
             }
 
