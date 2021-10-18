@@ -15,7 +15,7 @@ public class RaycastWeapon : MonoBehaviour
     RaycastHit hitInfo;
     public GameObject StartShooting()
     {
-        Debug.Log("masukkk");
+        //Debug.Log("masukkk");
 
         isShooting = true;
         flash.Emit(1);

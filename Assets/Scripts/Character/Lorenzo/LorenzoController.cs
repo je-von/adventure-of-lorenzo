@@ -208,17 +208,17 @@ public class LorenzoController : MonoBehaviour
                     currentWeapon.currentAmmo--;
                     if (hitObject != null)
                     {
-                        Debug.Log(hitObject.name + " | " + hitObject.tag);
+                        //Debug.Log(hitObject.name + " | " + hitObject.tag);
                         //Debug.Log(hitObject.name);
 
 
                         if (hitObject.tag == "KYLE")
                         {
                             KyleController kc = hitObject.GetComponentInChildren<KyleController>();
-                            Debug.Log(kc.kyle.healthPoints + " - " + currentWeapon.damage + " = " + (kc.kyle.healthPoints - currentWeapon.damage));
+                            //Debug.Log(kc.kyle.healthPoints + " - " + currentWeapon.damage + " = " + (kc.kyle.healthPoints - currentWeapon.damage));
                             kc.kyle.healthPoints -= currentWeapon.damage;
                             
-                            Debug.Log(kc.kyle.healthPoints);
+                            //Debug.Log(kc.kyle.healthPoints);
 
                         }
                     }

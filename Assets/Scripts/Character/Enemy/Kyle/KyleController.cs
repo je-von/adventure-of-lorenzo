@@ -99,7 +99,10 @@ public class KyleController : MonoBehaviour
                     //Debug.Log("player masuk enemy range");
                     isAiming = true;
 
-                    rw.raycastDest = collider[0].gameObject.transform.Find("EnemyTarget");
+                    rw.raycastDest = GameObject.Find("EnemyTarget").transform;
+                    //Transform t = collider[0].gameObject.transform;
+                    //t.position += new Vector3(0, 100f, 0);
+                    //rw.raycastDest = t;
 
 
 
@@ -129,7 +132,7 @@ public class KyleController : MonoBehaviour
 
                     if(hitObject != null)
                     {
-                        Debug.Log(hitObject.name);
+                        //Debug.Log(hitObject.name);
                         if(hitObject.name == "Lorenzo")
                         {
                             Lorenzo.GetInstance().healthPoints -= kyle.bulletDamage;
