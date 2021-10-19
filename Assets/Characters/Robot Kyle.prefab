@@ -203,7 +203,7 @@ MonoBehaviour:
   patrolPoint: {fileID: 0}
   patrolStart: {fileID: 0}
   patrolEnd: {fileID: 0}
-  slider: {fileID: 5927546210495331725}
+  healthSlider: {fileID: 5927546210495331725}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8

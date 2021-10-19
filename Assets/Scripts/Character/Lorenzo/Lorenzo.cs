@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Lorenzo
 {
-    public int healthPoints, maxHealth, skillPoints;
+    public int healthPoints, maxHealth, skillPoints, maxSkill;
     public List<Item> items;
     public int coreItemCount;
     public Weapon primaryWeapon, secondaryWeapon;
@@ -24,7 +24,7 @@ public class Lorenzo
     {
         items = new List<Item>();
         maxHealth = healthPoints = 1000;
-        skillPoints = 200;
+        skillPoints = maxSkill = 200;
         coreItemCount = 0; // 0/9
     }
 

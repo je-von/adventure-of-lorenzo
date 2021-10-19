@@ -21,7 +21,7 @@ public class KyleController : MonoBehaviour
     public Transform patrolStart;
     public Transform patrolEnd;
 
-    public Slider slider;
+    public Slider healthSlider;
 
     public LayerMask playerLayer;
 
@@ -56,7 +56,7 @@ public class KyleController : MonoBehaviour
         //agent.destination = patrolPoint.transform.position;
 
         //Debug.Log("-----" + this.gameObject);
-        slider.value = (float)kyle.healthPoints / (float)kyle.maxHealth;
+        healthSlider.value = (float)kyle.healthPoints / (float)kyle.maxHealth;
 
         if (kyle.healthPoints <= 0)
         {

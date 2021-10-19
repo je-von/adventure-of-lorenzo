@@ -16,7 +16,7 @@ public class LorenzoController : MonoBehaviour
     public Transform cam;
     public bool isShootingMode, isPaused;
     public GameObject exploreCam, shootingCamR, shootingCamL, pausePanel, deathPanel;
-    public Slider slider;
+    public Slider healthSlider, skillSlider;
     RaycastWeapon rw;
 
     // Start is called before the first frame update
@@ -46,7 +46,8 @@ public class LorenzoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        slider.value = (float)Lorenzo.GetInstance().healthPoints / (float)Lorenzo.GetInstance().maxHealth;
+        healthSlider.value = (float)Lorenzo.GetInstance().healthPoints / (float)Lorenzo.GetInstance().maxHealth;
+        skillSlider.value = (float)Lorenzo.GetInstance().skillPoints / (float)Lorenzo.GetInstance().maxSkill;
         CheckDeath();
         CheckAiming();
         StartCoroutine(ChangeWeapon());

@@ -18921,7 +18921,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 586218127}
-  m_LocalRotation: {x: 0.04728225, y: 0.9521942, z: 0.22897659, w: -0.19662216}
+  m_LocalRotation: {x: 0.047282234, y: 0.9521942, z: 0.22897659, w: -0.19662213}
   m_LocalPosition: {x: -92.259026, y: 0.9157604, z: -55.62524}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -29421,7 +29421,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 781006124}
-  m_LocalRotation: {x: 0.045782648, y: 0.95391136, z: 0.22171445, w: -0.19697675}
+  m_LocalRotation: {x: 0.045782644, y: 0.95391136, z: 0.22171445, w: -0.19697674}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -64425,7 +64425,8 @@ MonoBehaviour:
   shootingCamL: {fileID: 37138793}
   pausePanel: {fileID: 569817738}
   deathPanel: {fileID: 455812296}
-  slider: {fileID: 724095822}
+  healthSlider: {fileID: 724095822}
+  skillSlider: {fileID: 1047916831}
 --- !u!1 &1633638630
 GameObject:
   m_ObjectHideFlags: 0

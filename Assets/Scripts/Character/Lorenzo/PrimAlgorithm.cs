@@ -7,7 +7,7 @@ public class PrimAlgorithm : MonoBehaviour
     public GameObject lightningEffect;
 
     public LayerMask enemyLayer;
-    private float electricDamage = 125f;
+    private int electricDamage = 125;
     private int V = 5;
     private int[] parent;
     private List<GameObject> vertex;
@@ -159,10 +159,17 @@ public class PrimAlgorithm : MonoBehaviour
         }
         for (int i = 0; i < V; i++)
         {
-            Target t = vertex[i].GetComponent<Target>();
+            var k = vertex[i].GetComponent<KyleController>();
+            //Debug.Log("#" + vertex[i].name);
+            if(k != null)
+            {
+                //Debug.Log(k.kyle.healthPoints + " kurang " + (electricDamage * vertexConnections[i].Count));
+                k.kyle.healthPoints -= (electricDamage * vertexConnections[i].Count);
+            }
+
             //t.TakeDamage(electricDamage * vertexConnections[i].Count);
         }
-        //skillPoint -= 75;
+        Lorenzo.GetInstance().skillPoints -= 75;
     }
 
     private void Start()
