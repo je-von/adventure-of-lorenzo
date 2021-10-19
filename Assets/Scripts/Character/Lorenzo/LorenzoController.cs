@@ -383,7 +383,26 @@ public class LorenzoController : MonoBehaviour
                 Lorenzo.GetInstance().items.Add(new HealthPotion());
                 Destroy(hit.gameObject);
             }
-
+            else if (hit.gameObject.tag == "SHIELD ITEM")
+            {
+                Lorenzo.GetInstance().items.Add(new Shield());
+                Destroy(hit.gameObject);
+            }
+            else if (hit.gameObject.tag == "AMMO ITEM")
+            {
+                Lorenzo.GetInstance().items.Add(new Ammo());
+                Destroy(hit.gameObject);
+            }
+            else if (hit.gameObject.tag == "PAINKILLER ITEM")
+            {
+                Lorenzo.GetInstance().items.Add(new PainKiller());
+                Destroy(hit.gameObject);
+            }
+            else if (hit.gameObject.tag == "DOUBLEDAMAGE ITEM")
+            {
+                Lorenzo.GetInstance().items.Add(new DamageMultiplier());
+                Destroy(hit.gameObject);
+            }
         }
         
     }

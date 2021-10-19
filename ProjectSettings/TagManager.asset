@@ -8,6 +8,10 @@ TagManager:
   - KYLE
   - SKILL ITEM
   - HEALTH ITEM
+  - SHIELD ITEM
+  - AMMO ITEM
+  - PAINKILLER ITEM
+  - DOUBLEDAMAGE ITEM
   layers:
   - Default
   - TransparentFX
