@@ -45,11 +45,6 @@ public class PrimAlgorithm : MonoBehaviour
         key[0] = 0;
         parent[0] = -1;
 
-        if (V < 2)
-        {
-            parent[0] = 0;
-        }
-
         for (int count = 0; count < V - 1; count++)
         {
             int u = MinKey(key, mstSet);
@@ -93,9 +88,10 @@ public class PrimAlgorithm : MonoBehaviour
             vertex.Add(c.gameObject);
         }
         vertex.Add(gameObject);
+        Debug.Log(gameObject.name);
 
         V = vertex.Count;
-
+        Debug.Log("Vertex: " + V);
         List<List<float>> adjacentList = new List<List<float>>();
         foreach (GameObject x in vertex)
         {
@@ -117,7 +113,7 @@ public class PrimAlgorithm : MonoBehaviour
             adjacentList.Add(row);
         }
         Prim(adjacentList);
-        //StartEffect();
+        StartEffect();
     }
 
     void StartEffect()
@@ -128,16 +124,32 @@ public class PrimAlgorithm : MonoBehaviour
             vertexConnections.Add(new List<string>());
         }
 
-        for (int i = 0; i < V; i++)
+        Debug.Log("List of Vertex");
+        foreach(GameObject g in vertex)
         {
-            string v1 = hitColliders[i].name;
-            Debug.Log(V);
-            Debug.Log(hitColliders.Length + " - " + i + " - " + parent[i+1]);
-            string v2 = hitColliders[parent[i]].name;
+            Debug.Log(g.name);
+        }
+
+        for (int i = 1; i < V; i++)
+        {
+            Debug.Log("Index: " + i);
+            string v1 = vertex[i].name;
+            Debug.Log("Collider1: "  + v1);
+            string v2 = vertex[parent[i]].name;
+            Debug.Log("Collider2: " + v2);
             vertexConnections[i].Add(v2);
 
             
-            GameObject l = Instantiate(lightningEffect, hitColliders[parent[i]].transform.position, Quaternion.identity);
+            GameObject l = Instantiate(lightningEffect, vertex[parent[i]].transform.position, Quaternion.identity);
+
+            DigitalRuby.LightningBolt.LightningBoltScript lbs = l.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>();
+            lbs.StartObject = vertex[parent[i]].gameObject;
+            lbs.EndObject = vertex[i].gameObject;
+
+            //lbs.gameObject.transform.position = new Vector3(lbs.gameObject.transform.position.x, lbs.gameObject.transform.position.y + 10, lbs.gameObject.transform.position.z);
+            Destroy(l, 6f);
+
+
             Debug.Log(l.name);
 
             if (V > 1)
@@ -147,7 +159,7 @@ public class PrimAlgorithm : MonoBehaviour
         }
         for (int i = 0; i < V; i++)
         {
-            Target t = hitColliders[i].GetComponent<Target>();
+            Target t = vertex[i].GetComponent<Target>();
             //t.TakeDamage(electricDamage * vertexConnections[i].Count);
         }
         //skillPoint -= 75;
