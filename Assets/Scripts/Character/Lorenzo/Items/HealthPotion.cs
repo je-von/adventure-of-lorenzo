@@ -10,6 +10,6 @@ public class HealthPotion : Item
 
     public override void UseItem()
     {
-
+        Lorenzo.GetInstance().healthPoints += 200;
     }
 }

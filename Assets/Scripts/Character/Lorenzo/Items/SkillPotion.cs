@@ -10,6 +10,6 @@ public class SkillPotion : Item
 
     public override void UseItem()
     {
-        
+        Lorenzo.GetInstance().skillPoints += 75;
     }
 }

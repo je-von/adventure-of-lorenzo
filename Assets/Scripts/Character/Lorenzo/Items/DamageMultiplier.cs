@@ -10,6 +10,16 @@ public class DamageMultiplier : Item
 
     public override void UseItem()
     {
-        
+        int tempPrimary = Lorenzo.GetInstance().primaryWeapon.damage;
+        int tempSecondary = Lorenzo.GetInstance().secondaryWeapon.damage;
+
+        Lorenzo.GetInstance().primaryWeapon.damage *= 2;
+        Lorenzo.GetInstance().secondaryWeapon.damage *= 2;
+
+        new WaitForSeconds(5f);
+
+        Lorenzo.GetInstance().primaryWeapon.damage = tempPrimary;
+        Lorenzo.GetInstance().secondaryWeapon.damage = tempSecondary;
+
     }
 }
