@@ -78,7 +78,7 @@ public class PrimAlgorithm : MonoBehaviour
 
         if (hitColliders.Length <= 0)
         {
-
+            Debug.Log("no enemy");
             return;
         }
 
@@ -169,7 +169,8 @@ public class PrimAlgorithm : MonoBehaviour
 
             //t.TakeDamage(electricDamage * vertexConnections[i].Count);
         }
-        Lorenzo.GetInstance().skillPoints -= 75;
+        //Lorenzo.GetInstance().skillPoints -= 75;
+        //Lorenzo.GetInstance().DecreaseSkillPoint(75);
     }
 
     private void Start()
@@ -180,7 +181,12 @@ public class PrimAlgorithm : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Init();
+            if (Lorenzo.GetInstance().DecreaseSkillPoint(75))
+            {
+                Init();
+
+            }
+
         }
     }
 }

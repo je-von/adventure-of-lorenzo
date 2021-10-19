@@ -6,6 +6,8 @@ TagManager:
   tags:
   - CORE ITEM
   - KYLE
+  - SKILL ITEM
+  - HEALTH ITEM
   layers:
   - Default
   - TransparentFX

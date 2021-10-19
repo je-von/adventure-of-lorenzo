@@ -28,4 +28,15 @@ public class Lorenzo
         coreItemCount = 0; // 0/9
     }
 
+    public bool DecreaseSkillPoint(int point)
+    {
+        if(point <= this.skillPoints)
+        {
+            this.skillPoints -= point;
+            return true;
+        }
+
+        return false;
+    }
+
 }

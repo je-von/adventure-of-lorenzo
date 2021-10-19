@@ -32,7 +32,16 @@ public class Weapon
         pickPosition.localEulerAngles = rotation;
     }
 
-    //public 
+    public bool DecreaseAmmo(int ammo)
+    {
+        if(ammo <= this.currentAmmo)
+        {
+            this.currentAmmo -= ammo;
+            return true;
+        }
+        return false;
+
+    }
 
     //public Weapon(GameObject weaponObj, GameObject hand, Vector3 position, Vector3 rotation,
     //              int intialSpareAmmo, int fireRate, int bulletSpeed, int bulletDrop, int damage)

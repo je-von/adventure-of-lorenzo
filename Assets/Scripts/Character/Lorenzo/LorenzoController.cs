@@ -19,6 +19,7 @@ public class LorenzoController : MonoBehaviour
     public Slider healthSlider, skillSlider;
     RaycastWeapon rw;
 
+    public List<GameObject> inventories;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +33,7 @@ public class LorenzoController : MonoBehaviour
 
         Lorenzo.GetInstance().primaryWeapon = new Weapon(GameObject.Find("Primary Weapon"), rightHand, new Vector3(0.0824f, 0.1932f, -0.0396f), new Vector3(-97.142f, 49.003f, 160.291f), 150, 15, 40, 10, 10, true);
 
-        Lorenzo.GetInstance().secondaryWeapon = new Weapon(GameObject.Find("Secondary Weapon"), leftHand, new Vector3(0.0310f, 0.00602f, -0.0749f), new Vector3(-225.829f, -191.532f, -104.281f), 150, 10, 25, 5, 15, false);
+        Lorenzo.GetInstance().secondaryWeapon = new Weapon(GameObject.Find("Secondary Weapon"), leftHand, new Vector3(0.0310f, 0.00602f, -0.0749f), new Vector3(-225.829f, -191.532f, -104.281f), 120, 10, 25, 5, 15, false);
 
         currentWeapon = Lorenzo.GetInstance().primaryWeapon;
 
@@ -52,6 +53,7 @@ public class LorenzoController : MonoBehaviour
         CheckAiming();
         StartCoroutine(ChangeWeapon());
         ChangeShootingCamera();
+        RefreshInventory();
 
         var esc = Input.GetKeyDown(KeyCode.Escape);
 
@@ -132,6 +134,25 @@ public class LorenzoController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    private void RefreshInventory()
+    {
+        //Debug.Log(Lorenzo.GetInstance().items.Count);
+        for (int i = 0; i < 6; i++)
+        {
+            var inventory = inventories[i].transform.Find("ITEM_IMAGE").GetComponent<Image>();
+            if (Lorenzo.GetInstance().items.Count > i)
+            {
+                inventory.sprite = Lorenzo.GetInstance().items[i].sprite;
+                inventory.gameObject.SetActive(true);
+            }
+            else
+            {
+                inventory.gameObject.SetActive(false);
+                //break;
+            }
+        }
+    }
+
     private void CheckDeath()
     {
         if(Lorenzo.GetInstance().healthPoints <= 0)
@@ -205,23 +226,31 @@ public class LorenzoController : MonoBehaviour
                 rw = currentWeapon.weaponObj.GetComponentInChildren<RaycastWeapon>();
                 if (Input.GetMouseButtonDown(0))
                 {
-                    GameObject hitObject = rw.StartShooting();
-                    currentWeapon.currentAmmo--;
-                    if (hitObject != null)
+                    if (currentWeapon.DecreaseAmmo(1))
                     {
-                        //Debug.Log(hitObject.name + " | " + hitObject.tag);
-                        //Debug.Log(hitObject.name);
-
-
-                        if (hitObject.tag == "KYLE")
+                        GameObject hitObject = rw.StartShooting();
+                        //currentWeapon.currentAmmo--;
+                        if (hitObject != null)
                         {
-                            KyleController kc = hitObject.GetComponentInChildren<KyleController>();
-                            //Debug.Log(kc.kyle.healthPoints + " - " + currentWeapon.damage + " = " + (kc.kyle.healthPoints - currentWeapon.damage));
-                            kc.kyle.healthPoints -= currentWeapon.damage;
-                            
-                            //Debug.Log(kc.kyle.healthPoints);
+                            //Debug.Log(hitObject.name + " | " + hitObject.tag);
+                            //Debug.Log(hitObject.name);
 
+
+                            if (hitObject.tag == "KYLE")
+                            {
+                                KyleController kc = hitObject.GetComponentInChildren<KyleController>();
+                                //Debug.Log(kc.kyle.healthPoints + " - " + currentWeapon.damage + " = " + (kc.kyle.healthPoints - currentWeapon.damage));
+                                kc.kyle.healthPoints -= currentWeapon.damage;
+                            
+                                //Debug.Log(kc.kyle.healthPoints);
+
+                            }
                         }
+
+                    }
+                    else
+                    {
+                        StartCoroutine(ReloadWeapon());
                     }
                 }
                 if (Input.GetMouseButtonUp(0))
@@ -233,7 +262,13 @@ public class LorenzoController : MonoBehaviour
         
     }
 
-    
+    IEnumerator ReloadWeapon()
+    {
+        Debug.Log("reloading");
+        yield return new WaitForSeconds(5f);
+
+        currentWeapon.currentAmmo = currentWeapon.maxAmmo;
+    }
 
     private void CheckAiming()
     {
@@ -334,5 +369,22 @@ public class LorenzoController : MonoBehaviour
             Destroy(hit.gameObject);
             Lorenzo.GetInstance().coreItemCount++;
         }
+        
+        if(Lorenzo.GetInstance().items.Count < 6)
+        {
+            if(hit.gameObject.tag == "SKILL ITEM")
+            {
+                Lorenzo.GetInstance().items.Add(new SkillPotion());
+                //Debug.Log(Lorenzo.GetInstance().items.Count);
+                Destroy(hit.gameObject);
+            }
+            else if (hit.gameObject.tag == "HEALTH ITEM")
+            {
+                Lorenzo.GetInstance().items.Add(new HealthPotion());
+                Destroy(hit.gameObject);
+            }
+
+        }
+        
     }
 }
