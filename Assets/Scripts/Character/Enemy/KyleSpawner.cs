@@ -20,12 +20,7 @@ public class KyleSpawner : MonoBehaviour
             Transform patrolStart = p.transform.GetChild(0);
             Transform patrolEnd = p.transform.GetChild(1);
 
-
-            GameObject k = Instantiate(kyle, spawnPoint.transform.position, Quaternion.identity);
-            k.GetComponent<KyleController>().patrolStart = patrolStart;
-            k.GetComponent<KyleController>().patrolEnd = patrolEnd;
-
-            k.GetComponent<NavMeshAgent>().SetDestination(patrolStart.position);
+            SpawnKyle(patrolStart, patrolEnd);
             //k.GetComponent<NavMeshAgent>().SetDestination(p.transform.position);
 
         }
@@ -35,6 +30,17 @@ public class KyleSpawner : MonoBehaviour
         //k.GetComponent<NavMeshAgent>().destination = patrolPoints[1].transform.position;
         //k.GetComponent<NavMeshAgent>().Move(transform.position + (transform.position - patrolPoints[1].transform.position));
         //Debug.Log(k.GetComponent<NavMeshAgent>().destination);
+    }
+
+    public void SpawnKyle(Transform patrolStart, Transform patrolEnd)
+    {
+        GameObject k = Instantiate(kyle, spawnPoint.transform.position, Quaternion.identity);
+        k.GetComponent<KyleController>().patrolStart = patrolStart;
+        k.GetComponent<KyleController>().patrolEnd = patrolEnd;
+        k.GetComponent<KyleController>().kyleSpawner = this;
+
+        k.GetComponent<NavMeshAgent>().SetDestination(patrolStart.position);
+        Debug.Log("kebuat");
     }
 
     IEnumerator SpawnPlayer()

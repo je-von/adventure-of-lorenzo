@@ -10,8 +10,7 @@ public class Enemy
     public int bulletsReload;
     public int respawnTime;
     public float itemPossibilty;
-
-    public Enemy(int healthPoints, float shootingInterval, int bulletDamage, int bulletsReload, int respawnTime, float itemPossibilty)
+    public Enemy( int healthPoints, float shootingInterval, int bulletDamage, int bulletsReload, int respawnTime, float itemPossibilty)
     {
         this.healthPoints = this.maxHealth = healthPoints;
         this.shootingInterval = shootingInterval;

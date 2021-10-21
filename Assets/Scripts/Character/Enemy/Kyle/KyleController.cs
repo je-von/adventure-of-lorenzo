@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class KyleController : MonoBehaviour
 {
+    public KyleSpawner kyleSpawner;
+
     public Kyle kyle;
     private CharacterController controller;
 
@@ -84,6 +86,10 @@ public class KyleController : MonoBehaviour
         pos.y = 1;
         var c = Instantiate(coreItem, pos, Quaternion.identity);
 
+
+        //yield return new WaitForSeconds(3f);
+        kyleSpawner.SpawnKyle(this.patrolStart, this.patrolEnd);
+        Debug.Log("sampe");
     }
 
     IEnumerator CheckPlayerInRange()
