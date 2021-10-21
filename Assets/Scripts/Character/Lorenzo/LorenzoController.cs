@@ -173,14 +173,19 @@ public class LorenzoController : MonoBehaviour
         for (int i = 0; i < 6; i++)
         {
             var inventory = inventories[i].transform.Find("ITEM_IMAGE").GetComponent<Image>();
+            var quantity = inventories[i].transform.Find("QUANTITY").GetComponent<TMPro.TextMeshProUGUI>();
             if (Lorenzo.GetInstance().items.Count > i)
             {
                 inventory.sprite = Lorenzo.GetInstance().items[i].sprite;
+                quantity.text = Lorenzo.GetInstance().items[i].quantity + "";
                 inventory.gameObject.SetActive(true);
+                quantity.gameObject.SetActive(true);
+
             }
             else
             {
                 inventory.gameObject.SetActive(false);
+                quantity.gameObject.SetActive(false);
                 //break;
             }
         }
@@ -447,12 +452,24 @@ public class LorenzoController : MonoBehaviour
             Lorenzo.GetInstance().coreItemCount++;
         }
         
-        if(Lorenzo.GetInstance().items.Count < 6)
-        {
+        //if(Lorenzo.GetInstance().items.Count < 6)
+        //{
             if(hit.gameObject.tag == "SKILL ITEM")
             {
-                Lorenzo.GetInstance().items.Add(new SkillPotion(this));
-                //Debug.Log(Lorenzo.GetInstance().items.Count);
+
+                var item = Lorenzo.GetInstance().items.Find(i => i is SkillPotion);
+                if (item == null && Lorenzo.GetInstance().items.Count < 6)
+                {
+                    Lorenzo.GetInstance().items.Add(new SkillPotion(this));
+                    //Debug.Log(Lorenzo.GetInstance().items.Count);
+            
+                }
+                else
+                {
+                    item.quantity++;
+                Debug.Log(item.quantity);
+                }
+
                 Destroy(hit.gameObject);
             }
             else if (hit.gameObject.tag == "HEALTH ITEM")
@@ -480,7 +497,7 @@ public class LorenzoController : MonoBehaviour
                 Lorenzo.GetInstance().items.Add(new DamageMultiplier(this));
                 Destroy(hit.gameObject);
             }
-        }
+        //}
         
     }
 }

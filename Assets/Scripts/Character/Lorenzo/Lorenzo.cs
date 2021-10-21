@@ -46,7 +46,10 @@ public class Lorenzo
             var temp = items[i - 1];
             temp.UseItem();
 
-            items.RemoveAt(i - 1);
+            temp.quantity--;
+
+            if(temp.quantity <= 0)
+                items.RemoveAt(i - 1);
         }
     }
 }
