@@ -47,6 +47,8 @@ public class LorenzoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(Time.deltaTime);
+
         healthSlider.value = (float)Lorenzo.GetInstance().healthPoints / (float)Lorenzo.GetInstance().maxHealth;
         skillSlider.value = (float)Lorenzo.GetInstance().skillPoints / (float)Lorenzo.GetInstance().maxSkill;
         CheckDeath();
@@ -209,16 +211,14 @@ public class LorenzoController : MonoBehaviour
             //zoom kamera
             if (Input.GetMouseButtonDown(1))
             {
-                var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
-                currentCam.SetActive(false);
-                currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 1.6f;
-                currentCam.SetActive(true);
+                StartCoroutine(ZoomInCamera());
 
             }
             if (Input.GetMouseButtonUp(1))
             {
-                var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
-                currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 3f;
+                //var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
+                //currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 3f;
+                StartCoroutine(ZoomOutCamera());
             }
 
             if (isShootingMode && animator.GetBool("isAiming"))
@@ -260,6 +260,28 @@ public class LorenzoController : MonoBehaviour
             }
         }
         
+    }
+
+    IEnumerator ZoomInCamera()
+    {
+        var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
+        while(currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius > 1.6f)
+        {
+            yield return null;
+            currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius -= Time.deltaTime * 2f;
+
+        }
+    }
+
+    IEnumerator ZoomOutCamera()
+    {
+        var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
+        while (currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius < 3f)
+        {
+            yield return null;
+            currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius += Time.deltaTime * 2f;
+
+        }
     }
 
     IEnumerator ReloadWeapon()
