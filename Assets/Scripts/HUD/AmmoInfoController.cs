@@ -30,6 +30,6 @@ public class AmmoInfoController : MonoBehaviour
         }
 
         weaponNameText.text = name;
-        ammoText.text = currentWeapon.currentAmmo + " | " + currentWeapon.maxAmmo;
+        ammoText.text = currentWeapon.currentAmmo + " | " + currentWeapon.spareAmmo;
     }
 }

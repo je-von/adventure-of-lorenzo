@@ -5,15 +5,16 @@ using UnityEngine;
 public class Weapon
 {
     public Transform initialPosition, pickPosition;
-    public int maxAmmo, currentAmmo, fireRate, bulletSpeed, bulletDrop, damage;
-
+    public int currentAmmo, fireRate, bulletSpeed, bulletDrop, damage;
+    public int clipSize, spareAmmo;
     public GameObject weaponObj;
 
     public bool isUsed;
     public Weapon(GameObject weaponObj, GameObject hand, Vector3 position, Vector3 rotation,
-                  int currentAmmo, int fireRate, int bulletSpeed, int bulletDrop, int damage, bool isUsed)
+                  int clipSize, int spareAmmo, int fireRate, int bulletSpeed, int bulletDrop, int damage, bool isUsed)
     {
-        this.maxAmmo = this.currentAmmo = currentAmmo;
+        this.clipSize = this.currentAmmo = clipSize;
+        this.spareAmmo = spareAmmo;
         this.fireRate = fireRate;
         this.bulletSpeed = bulletSpeed;
         this.bulletDrop = bulletDrop;
@@ -42,6 +43,16 @@ public class Weapon
         return false;
 
     }
+    //public bool DecreaseSpareAmmo(int ammo)
+    //{
+    //    if (ammo <= this.spareAmmo)
+    //    {
+    //        this.spareAmmo -= ammo;
+    //        return true;
+    //    }
+    //    return false;
+
+    //}
 
     //public Weapon(GameObject weaponObj, GameObject hand, Vector3 position, Vector3 rotation,
     //              int intialSpareAmmo, int fireRate, int bulletSpeed, int bulletDrop, int damage)
