@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealthPotion : Item
 {
-    public HealthPotion() : base(Resources.Load<Sprite>("HEALTH_SPRITE"))
+    public HealthPotion(MonoBehaviour mono) : base(mono, Resources.Load<Sprite>("HEALTH_SPRITE"))
     {
     }
 

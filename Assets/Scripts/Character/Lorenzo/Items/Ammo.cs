@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ammo : Item
 {
-    public Ammo() : base(Resources.Load<Sprite>("AMMO_SPRITE"))
+    public Ammo(MonoBehaviour mono) : base(mono, Resources.Load<Sprite>("AMMO_SPRITE"))
     {
     }
 

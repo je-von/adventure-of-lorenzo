@@ -5,20 +5,26 @@ using UnityEngine;
 
 public class PainKiller : Item
 {
-    public PainKiller() : base(Resources.Load<Sprite>("PAINKILLER_SPRITE"))
+    public PainKiller(MonoBehaviour mono) : base(mono, Resources.Load<Sprite>("PAINKILLER_SPRITE"))
     {
     }
 
     public override void UseItem()
     {
+        mono.StartCoroutine(DecreaseHealthPoints());
+    }
+
+    IEnumerator DecreaseHealthPoints()
+    {
         int temp = Lorenzo.GetInstance().healthPoints;
-        for(int i = 0; i < 5; i++)
+        Lorenzo.GetInstance().healthPoints += 450;
+        for (int i = 0; i < 5; i++)
         {
-            new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1f);
             Lorenzo.GetInstance().healthPoints -= 90;
         }
 
-        if(temp < Lorenzo.GetInstance().healthPoints)
+        if (temp < Lorenzo.GetInstance().healthPoints)
         {
             Lorenzo.GetInstance().healthPoints = temp;
         }

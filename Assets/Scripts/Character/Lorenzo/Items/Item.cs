@@ -5,10 +5,12 @@ using UnityEngine;
 public abstract class Item
 {
     public Sprite sprite;
-    public Item(Sprite sprite)
+    public MonoBehaviour mono;
+    public Item(MonoBehaviour mono, Sprite sprite)
     {
         Debug.Log(sprite.name);
         this.sprite = sprite;
+        this.mono = mono;
     }
 
     public abstract void UseItem();

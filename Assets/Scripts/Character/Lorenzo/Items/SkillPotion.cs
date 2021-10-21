@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillPotion : Item
 {
-    public SkillPotion() : base(Resources.Load<Sprite>("SKILL_SPRITE"))
+    public SkillPotion(MonoBehaviour mono) : base(mono, Resources.Load<Sprite>("SKILL_SPRITE"))
     {
     }
 

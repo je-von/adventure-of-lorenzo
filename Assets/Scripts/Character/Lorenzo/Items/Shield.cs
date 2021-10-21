@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shield : Item
 {
-    public Shield() : base(Resources.Load<Sprite>("SHIELD_SPRITE"))
+    public Shield(MonoBehaviour mono) : base(mono, Resources.Load<Sprite>("SHIELD_SPRITE"))
     {
     }
 

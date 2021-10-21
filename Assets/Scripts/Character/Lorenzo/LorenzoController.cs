@@ -427,33 +427,33 @@ public class LorenzoController : MonoBehaviour
         {
             if(hit.gameObject.tag == "SKILL ITEM")
             {
-                Lorenzo.GetInstance().items.Add(new SkillPotion());
+                Lorenzo.GetInstance().items.Add(new SkillPotion(this));
                 //Debug.Log(Lorenzo.GetInstance().items.Count);
                 Destroy(hit.gameObject);
             }
             else if (hit.gameObject.tag == "HEALTH ITEM")
             {
-                Lorenzo.GetInstance().items.Add(new HealthPotion());
+                Lorenzo.GetInstance().items.Add(new HealthPotion(this));
                 Destroy(hit.gameObject);
             }
             else if (hit.gameObject.tag == "SHIELD ITEM")
             {
-                Lorenzo.GetInstance().items.Add(new Shield());
+                Lorenzo.GetInstance().items.Add(new Shield(this));
                 Destroy(hit.gameObject);
             }
             else if (hit.gameObject.tag == "AMMO ITEM")
             {
-                Lorenzo.GetInstance().items.Add(new Ammo());
+                Lorenzo.GetInstance().items.Add(new Ammo(this));
                 Destroy(hit.gameObject);
             }
             else if (hit.gameObject.tag == "PAINKILLER ITEM")
             {
-                Lorenzo.GetInstance().items.Add(new PainKiller());
+                Lorenzo.GetInstance().items.Add(new PainKiller(this));
                 Destroy(hit.gameObject);
             }
             else if (hit.gameObject.tag == "DOUBLEDAMAGE ITEM")
             {
-                Lorenzo.GetInstance().items.Add(new DamageMultiplier());
+                Lorenzo.GetInstance().items.Add(new DamageMultiplier(this));
                 Destroy(hit.gameObject);
             }
         }
