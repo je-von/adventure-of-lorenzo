@@ -12,7 +12,7 @@ public class LorenzoController : MonoBehaviour
     public Vector3 velocity;
     public float speed = 3f, turnSmoothTime = 0.1f, turnSmoothVelocity;
     public Weapon currentWeapon;
-    public GameObject rightHand,leftHand;
+    public GameObject rightHand, leftHand;
     public Transform cam;
     public bool isShootingMode, isPaused;
     public GameObject exploreCam, shootingCamR, shootingCamL, pausePanel, deathPanel;
@@ -112,7 +112,7 @@ public class LorenzoController : MonoBehaviour
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            if(!isShootingMode)
+            if (!isShootingMode)
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
@@ -165,7 +165,7 @@ public class LorenzoController : MonoBehaviour
         }
     }
 
-    
+
 
     private void RefreshInventory()
     {
@@ -193,7 +193,7 @@ public class LorenzoController : MonoBehaviour
 
     private void CheckDeath()
     {
-        if(Lorenzo.GetInstance().healthPoints <= 0)
+        if (Lorenzo.GetInstance().healthPoints <= 0)
         {
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
@@ -269,7 +269,7 @@ public class LorenzoController : MonoBehaviour
                     StartCoroutine(ReloadWeapon());
                 }
 
-                    rw = currentWeapon.weaponObj.GetComponentInChildren<RaycastWeapon>();
+                rw = currentWeapon.weaponObj.GetComponentInChildren<RaycastWeapon>();
                 if (Input.GetMouseButton(0))
                 {
                     if (!animator.GetBool("IsReloading"))
@@ -289,7 +289,7 @@ public class LorenzoController : MonoBehaviour
                                     KyleController kc = hitObject.GetComponentInChildren<KyleController>();
                                     //Debug.Log(kc.kyle.healthPoints + " - " + currentWeapon.damage + " = " + (kc.kyle.healthPoints - currentWeapon.damage));
                                     kc.kyle.healthPoints -= currentWeapon.damage;
-                            
+
                                     //Debug.Log(kc.kyle.healthPoints);
 
                                 }
@@ -303,7 +303,7 @@ public class LorenzoController : MonoBehaviour
 
                     }
 
-                    
+
                 }
                 if (Input.GetMouseButtonUp(0))
                 {
@@ -311,13 +311,13 @@ public class LorenzoController : MonoBehaviour
                 }
             }
         }
-        
+
     }
 
     IEnumerator ZoomInCamera()
     {
         var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
-        while(currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius > 1.6f && Input.GetMouseButton(1))
+        while (currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius > 1.6f && Input.GetMouseButton(1))
         {
             yield return null;
             currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius -= Time.deltaTime * 2f;
@@ -340,7 +340,7 @@ public class LorenzoController : MonoBehaviour
     {
         Debug.Log("reloading");
         int ammoUsed = currentWeapon.clipSize - currentWeapon.currentAmmo;
-        if(currentWeapon.spareAmmo >= ammoUsed)
+        if (currentWeapon.spareAmmo >= ammoUsed)
         {
             animator.SetBool("IsReloading", true);
             yield return new WaitForSeconds(5f);
@@ -447,57 +447,106 @@ public class LorenzoController : MonoBehaviour
         //controller.co
         if (hit.gameObject.tag == "CORE ITEM")
         {
-        //Debug.Log(hit.gameObject.name);
+            //Debug.Log(hit.gameObject.name);
             Destroy(hit.gameObject);
             Lorenzo.GetInstance().coreItemCount++;
         }
-        
+
         //if(Lorenzo.GetInstance().items.Count < 6)
         //{
-            if(hit.gameObject.tag == "SKILL ITEM")
+        if (hit.gameObject.tag == "SKILL ITEM")
+        {
+
+            var item = Lorenzo.GetInstance().items.Find(i => i is SkillPotion);
+            if (item == null && Lorenzo.GetInstance().items.Count < 6)
             {
+                Lorenzo.GetInstance().items.Add(new SkillPotion(this));
+                //Debug.Log(Lorenzo.GetInstance().items.Count);
 
-                var item = Lorenzo.GetInstance().items.Find(i => i is SkillPotion);
-                if (item == null && Lorenzo.GetInstance().items.Count < 6)
-                {
-                    Lorenzo.GetInstance().items.Add(new SkillPotion(this));
-                    //Debug.Log(Lorenzo.GetInstance().items.Count);
-            
-                }
-                else
-                {
-                    item.quantity++;
-                Debug.Log(item.quantity);
-                }
-
-                Destroy(hit.gameObject);
             }
-            else if (hit.gameObject.tag == "HEALTH ITEM")
+            else
+            {
+                item.quantity++;
+                Debug.Log(item.quantity);
+            }
+
+            Destroy(hit.gameObject);
+        }
+        else if (hit.gameObject.tag == "HEALTH ITEM")
+        {
+            
+            var item = Lorenzo.GetInstance().items.Find(i => i is HealthPotion);
+            if (item == null && Lorenzo.GetInstance().items.Count < 6)
             {
                 Lorenzo.GetInstance().items.Add(new HealthPotion(this));
-                Destroy(hit.gameObject);
             }
-            else if (hit.gameObject.tag == "SHIELD ITEM")
+            else
+            {
+                item.quantity++;
+            }
+
+
+            Destroy(hit.gameObject);
+        }
+        else if (hit.gameObject.tag == "SHIELD ITEM")
+        {
+            
+            var item = Lorenzo.GetInstance().items.Find(i => i is Shield);
+            if (item == null && Lorenzo.GetInstance().items.Count < 6)
             {
                 Lorenzo.GetInstance().items.Add(new Shield(this));
-                Destroy(hit.gameObject);
             }
-            else if (hit.gameObject.tag == "AMMO ITEM")
+            else
+            {
+                item.quantity++;
+            }
+
+            Destroy(hit.gameObject);
+        }
+        else if (hit.gameObject.tag == "AMMO ITEM")
+        {
+            //Lorenzo.GetInstance().items.Add(new Ammo(this));
+            var item = Lorenzo.GetInstance().items.Find(i => i is Ammo);
+            if (item == null && Lorenzo.GetInstance().items.Count < 6)
             {
                 Lorenzo.GetInstance().items.Add(new Ammo(this));
-                Destroy(hit.gameObject);
             }
-            else if (hit.gameObject.tag == "PAINKILLER ITEM")
+            else
+            {
+                item.quantity++;
+            }
+            Destroy(hit.gameObject);
+        }
+        else if (hit.gameObject.tag == "PAINKILLER ITEM")
+        {
+            //Lorenzo.GetInstance().items.Add(new PainKiller(this));
+            var item = Lorenzo.GetInstance().items.Find(i => i is PainKiller);
+            if (item == null && Lorenzo.GetInstance().items.Count < 6)
             {
                 Lorenzo.GetInstance().items.Add(new PainKiller(this));
-                Destroy(hit.gameObject);
             }
-            else if (hit.gameObject.tag == "DOUBLEDAMAGE ITEM")
+            else
+            {
+                item.quantity++;
+            }
+            Destroy(hit.gameObject);
+        }
+        else if (hit.gameObject.tag == "DOUBLEDAMAGE ITEM")
+        {
+            //Lorenzo.GetInstance().items.Add(new DamageMultiplier(this));
+            var item = Lorenzo.GetInstance().items.Find(i => i is DamageMultiplier);
+            if (item == null && Lorenzo.GetInstance().items.Count < 6)
             {
                 Lorenzo.GetInstance().items.Add(new DamageMultiplier(this));
-                Destroy(hit.gameObject);
             }
+            else
+            {
+                item.quantity++;
+            }
+
+            Destroy(hit.gameObject);
+        }
         //}
-        
+
     }
 }
