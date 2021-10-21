@@ -10,6 +10,8 @@ public class Ammo : Item
 
     public override void UseItem()
     {
-        
+        Lorenzo.GetInstance().primaryWeapon.maxAmmo += 30;
+        Lorenzo.GetInstance().secondaryWeapon.maxAmmo += 30;
+
     }
 }

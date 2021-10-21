@@ -10,6 +10,16 @@ public class HealthPotion : Item
 
     public override void UseItem()
     {
-        Lorenzo.GetInstance().healthPoints += 200;
+        Debug.Log("use health");
+        if(Lorenzo.GetInstance().healthPoints + 200 > Lorenzo.GetInstance().maxHealth)
+        {
+            Lorenzo.GetInstance().healthPoints = Lorenzo.GetInstance().maxHealth;
+        }
+        else
+        {
+            Lorenzo.GetInstance().healthPoints += 200;
+
+        }
+
     }
 }

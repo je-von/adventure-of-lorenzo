@@ -56,6 +56,7 @@ public class LorenzoController : MonoBehaviour
         StartCoroutine(ChangeWeapon());
         ChangeShootingCamera();
         RefreshInventory();
+        GetInventoryInput();
 
         var esc = Input.GetKeyDown(KeyCode.Escape);
 
@@ -135,6 +136,36 @@ public class LorenzoController : MonoBehaviour
         velocity.y -= 9.81f * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
+    private void GetInventoryInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Lorenzo.GetInstance().UseInventoryItem(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Lorenzo.GetInstance().UseInventoryItem(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Lorenzo.GetInstance().UseInventoryItem(3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Lorenzo.GetInstance().UseInventoryItem(4);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            Lorenzo.GetInstance().UseInventoryItem(5);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            Lorenzo.GetInstance().UseInventoryItem(6);
+        }
+    }
+
+    
 
     private void RefreshInventory()
     {

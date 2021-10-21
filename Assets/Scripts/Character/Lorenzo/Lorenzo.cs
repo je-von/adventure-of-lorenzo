@@ -39,4 +39,14 @@ public class Lorenzo
         return false;
     }
 
+    public void UseInventoryItem(int i)
+    {
+        if (items.Count >= i)
+        {
+            var temp = items[i - 1];
+            temp.UseItem();
+
+            items.RemoveAt(i - 1);
+        }
+    }
 }
