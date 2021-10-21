@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy
 {
-    public int healthPoints, maxHealth;
+    public float healthPoints, maxHealth;
     public float shootingInterval;
     public int bulletDamage;
     public int bulletsReload;

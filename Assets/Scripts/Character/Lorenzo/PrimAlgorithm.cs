@@ -23,6 +23,7 @@ public class PrimAlgorithm : MonoBehaviour
         {
             if (mstSet[v] == false && key[v] < min)
             {
+                Debug.LogFormat("key["+ v + "] = " + key[v]);
                 min = key[v];
                 min_index = v;
             }
@@ -65,9 +66,9 @@ public class PrimAlgorithm : MonoBehaviour
         }
 
         //Debug.Log(hitColliders.Length + " - " + graph.Count);
-        //Debug.Log("Edge \tWeight");
-        //for (int i = 1; i < V; i++)
-        //    Debug.Log(parent[i] + " - " + i + "\t" + (graph[i])[parent[i]]);
+        Debug.Log("Edge \tWeight");
+        for (int i = 1; i < V; i++)
+            Debug.Log(parent[i] + " - " + i + "\t" + (graph[i])[parent[i]]);
     }
 
     private void Init()
@@ -93,14 +94,17 @@ public class PrimAlgorithm : MonoBehaviour
         V = vertex.Count;
         Debug.Log("Vertex: " + V);
         List<List<float>> adjacentList = new List<List<float>>();
+
+        Debug.Log("=============");
         foreach (GameObject x in vertex)
         {
             List<float> row = new List<float>();
+                string str = "";
             foreach (GameObject y in vertex)
             {
                 float weight;
                 //Debug.Log(x.name.Equals(y.name));
-                if (x.name.Equals(y.name))
+                if (x.Equals(y))
                 {
                     weight = 0;
                 }
@@ -108,20 +112,26 @@ public class PrimAlgorithm : MonoBehaviour
                 {
                     weight = Vector3.Distance(y.transform.position, x.transform.position);
                 }
+                str += " " + weight + " ";
                 row.Add(weight);
             }
+            Debug.Log(str);
             adjacentList.Add(row);
         }
+        Debug.Log("=============");
+
+
         Prim(adjacentList);
         StartEffect();
     }
 
     void StartEffect()
     {
-        List<List<string>> vertexConnections = new List<List<string>>(V);
+        List<int> connectionCount = new List<int>(V);
+        
         for (int i = 0; i < V; i++)
         {
-            vertexConnections.Add(new List<string>());
+            connectionCount.Add(0);
         }
 
         Debug.Log("List of Vertex");
@@ -133,12 +143,12 @@ public class PrimAlgorithm : MonoBehaviour
         for (int i = 1; i < V; i++)
         {
             Debug.Log("Index: " + i);
-            string v1 = vertex[i].name;
-            Debug.Log("Collider1: "  + v1);
-            string v2 = vertex[parent[i]].name;
-            Debug.Log("Collider2: " + v2);
-            vertexConnections[i].Add(v2);
+            var v1 = vertex[i];
+            Debug.Log("Collider1: "  + v1.name);
+            var v2 = vertex[parent[i]];
+            Debug.Log("Collider2: " + v2.name);
 
+            connectionCount[i]++;
             
             GameObject l = Instantiate(lightningEffect, vertex[parent[i]].transform.position, Quaternion.identity);
 
@@ -154,7 +164,9 @@ public class PrimAlgorithm : MonoBehaviour
 
             if (V > 1)
             {
-                vertexConnections[parent[i]].Add(v1);
+                connectionCount[parent[i]]++;
+
+
             }
         }
         for (int i = 0; i < V; i++)
@@ -163,14 +175,25 @@ public class PrimAlgorithm : MonoBehaviour
             //Debug.Log("#" + vertex[i].name);
             if(k != null)
             {
-                //Debug.Log(k.kyle.healthPoints + " kurang " + (electricDamage * vertexConnections[i].Count));
-                k.kyle.healthPoints -= (electricDamage * vertexConnections[i].Count);
-            }
+                Debug.Log(k.kyle.healthPoints + " kurang " + (electricDamage * connectionCount[i]));
+                int points = electricDamage * connectionCount[i];
 
-            //t.TakeDamage(electricDamage * vertexConnections[i].Count);
+                StartCoroutine(DecreaseKyleHealth(k, points));
+            }
         }
         //Lorenzo.GetInstance().skillPoints -= 75;
         //Lorenzo.GetInstance().DecreaseSkillPoint(75);
+    }
+
+    IEnumerator DecreaseKyleHealth(KyleController k, float points)
+    {
+        float interval = points / 6f;
+        while (points > 0)
+        {
+            yield return null;
+            k.kyle.healthPoints -= Time.deltaTime * interval;
+            points -= Time.deltaTime * interval;
+        }
     }
 
     private void Start()

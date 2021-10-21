@@ -60,17 +60,29 @@ public class KyleController : MonoBehaviour
 
         if (kyle.healthPoints <= 0)
         {
-            Destroy(this.gameObject);
-            Vector3 pos = this.transform.position;
-            pos.y = 1;
-            var c = Instantiate(coreItem, pos, Quaternion.identity);
+            StartCoroutine(DieAnimation());
+            //Vector3 pos = this.transform.position;
+            //pos.y = 1;
+            //var c = Instantiate(coreItem, pos, Quaternion.identity);
             //c.a
         }
-        
+
 
         //if(Physics.CheckSphere(transform.position, 10f, playerLayer))
 
 
+
+    }
+
+    IEnumerator DieAnimation()
+    {
+        animator.SetBool("isDead", true);
+
+        yield return new WaitForSeconds(3f);
+        Destroy(this.gameObject);
+        Vector3 pos = this.transform.position;
+        pos.y = 1;
+        var c = Instantiate(coreItem, pos, Quaternion.identity);
 
     }
 

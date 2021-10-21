@@ -65980,7 +65980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0, z: 0}
-  speed: 3
+  speed: 5
   turnSmoothTime: 0.1
   turnSmoothVelocity: 0
   rightHand: {fileID: 1380772622}

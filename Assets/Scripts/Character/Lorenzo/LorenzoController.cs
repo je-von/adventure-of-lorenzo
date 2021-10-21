@@ -221,7 +221,7 @@ public class LorenzoController : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName: "MainScene", LoadSceneMode.Single);
     }
-
+    private Coroutine current;
     private void ChangeShootingCamera()
     {
         if (isShootingMode)
@@ -242,14 +242,19 @@ public class LorenzoController : MonoBehaviour
             //zoom kamera
             if (Input.GetMouseButtonDown(1))
             {
-                StartCoroutine(ZoomInCamera());
+                //if(current != null)
+                //    StopCoroutine(current);
+                current = StartCoroutine(ZoomInCamera());
 
             }
             if (Input.GetMouseButtonUp(1))
             {
                 //var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
                 //currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius = 3f;
-                StartCoroutine(ZoomOutCamera());
+
+                //if (current != null)
+                //    StopCoroutine(current);
+                current = StartCoroutine(ZoomOutCamera());
             }
 
             if (isShootingMode && animator.GetBool("isAiming"))
@@ -296,7 +301,7 @@ public class LorenzoController : MonoBehaviour
     IEnumerator ZoomInCamera()
     {
         var currentCam = (shootingCamR.activeInHierarchy) ? shootingCamR : shootingCamL;
-        while(currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius > 1.6f)
+        while(currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius > 1.6f && Input.GetMouseButton(1))
         {
             yield return null;
             currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius -= Time.deltaTime * 2f;
@@ -310,7 +315,7 @@ public class LorenzoController : MonoBehaviour
         while (currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius < 3f)
         {
             yield return null;
-            currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius += Time.deltaTime * 2f;
+            currentCam.GetComponent<CinemachineFreeLook>().m_Orbits[1].m_Radius += Time.deltaTime * 3f;
 
         }
     }
