@@ -311,6 +311,14 @@ public class LorenzoController : MonoBehaviour
                                     //Debug.Log(kc.kyle.healthPoints);
 
                                 }
+                                else if (hitObject.tag == "WARRIOR")
+                                {
+                                    WarriorController wc = hitObject.GetComponentInChildren<WarriorController>();
+                                    wc.warrior.healthPoints -= currentWeapon.damage;
+
+                                    //Debug.Log(kc.kyle.healthPoints);
+
+                                }
                             }
                             nextFire -= currTime;
                             currTime = 0f;

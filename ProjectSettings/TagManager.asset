@@ -13,6 +13,7 @@ TagManager:
   - PAINKILLER ITEM
   - DOUBLEDAMAGE ITEM
   - MECH
+  - WARRIOR
   layers:
   - Default
   - TransparentFX

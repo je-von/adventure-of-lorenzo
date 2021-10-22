@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 5987638904196241236}
   - component: {fileID: 5229632254291063340}
   - component: {fileID: 2322081464841357990}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MECH ROBOT
   m_TagString: MECH
   m_Icon: {fileID: 0}
@@ -298,6 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5ad732cbed5cd4faeb68b3b8f46e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overrideText: {fileID: 0}
+  player: {fileID: 0}
   patrolStart: {fileID: 0}
   patrolEnd: {fileID: 0}
   healthSlider: {fileID: 5530126332981333088}
