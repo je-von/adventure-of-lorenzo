@@ -28,6 +28,11 @@ public class Lorenzo
         coreItemCount = 0; // 0/9
     }
 
+    public void restart()
+    {
+        instance = new Lorenzo();
+    }
+
     public bool DecreaseSkillPoint(int point)
     {
         if(point <= this.skillPoints)

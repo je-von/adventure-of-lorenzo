@@ -68,8 +68,6 @@ public class WarriorController : MonoBehaviour
             //var c = Instantiate(coreItem, pos, Quaternion.identity);
             //c.a
         }
-
-
         //if(Physics.CheckSphere(transform.position, 10f, playerLayer))
 
 
@@ -78,6 +76,8 @@ public class WarriorController : MonoBehaviour
 
     IEnumerator DieAnimation()
     {
+        rw.StopShooting();
+        isAiming = false;
         animator.SetBool("isDead", true);
 
         yield return new WaitForSeconds(3f);

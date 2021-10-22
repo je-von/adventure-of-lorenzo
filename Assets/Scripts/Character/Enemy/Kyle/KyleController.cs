@@ -78,6 +78,9 @@ public class KyleController : MonoBehaviour
 
     IEnumerator DieAnimation()
     {
+        rw.StopShooting();
+        //isAiming = false;
+        rw.raycastDest = rw.raycastSource;
         animator.SetBool("isDead", true);
 
         yield return new WaitForSeconds(3f);

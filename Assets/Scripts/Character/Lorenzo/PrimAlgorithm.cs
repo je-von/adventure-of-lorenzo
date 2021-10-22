@@ -171,27 +171,55 @@ public class PrimAlgorithm : MonoBehaviour
         }
         for (int i = 0; i < V; i++)
         {
-            var k = vertex[i].GetComponent<KyleController>();
-            //Debug.Log("#" + vertex[i].name);
-            if(k != null)
-            {
-                Debug.Log(k.kyle.healthPoints + " kurang " + (electricDamage * connectionCount[i]));
-                int points = electricDamage * connectionCount[i];
 
-                StartCoroutine(DecreaseKyleHealth(k, points));
+                int points = electricDamage * connectionCount[i];
+            if(vertex[i].GetComponent<KyleController>() != null) {
+                var enemy = vertex[i].GetComponent<KyleController>();
+                StartCoroutine(DecreaseEnemyHealth(enemy, points));
             }
+            else if (vertex[i].GetComponent<WarriorController>() != null)
+            {
+                var enemy = vertex[i].GetComponent<WarriorController>();
+                StartCoroutine(DecreaseEnemyHealth(enemy, points));
+            }
+            //Debug.Log("#" + vertex[i].name);
+            //if(enemy != null)
+            //{
+            //    //Debug.Log(enemy.kyle.healthPoints + " kurang " + (electricDamage * connectionCount[i]));
+
+            //    StartCoroutine(DecreaseEnemyHealth(enemy, points));
+            //}
+            //else
+            //{
+            //    enemy = vertex[i].GetComponent<WarriorController>();
+            //    if(enemy != null)
+            //    {
+            //        StartCoroutine(DecreaseWarriorHealth(enemy, points));
+            //    }
+            //}
         }
         //Lorenzo.GetInstance().skillPoints -= 75;
         //Lorenzo.GetInstance().DecreaseSkillPoint(75);
     }
 
-    IEnumerator DecreaseKyleHealth(KyleController k, float points)
+    IEnumerator DecreaseEnemyHealth(KyleController k, float points)
     {
         float interval = points / 6f;
         while (points > 0)
         {
             yield return null;
             k.kyle.healthPoints -= Time.deltaTime * interval;
+            points -= Time.deltaTime * interval;
+        }
+    }
+
+    IEnumerator DecreaseEnemyHealth(WarriorController w, float points)
+    {
+        float interval = points / 6f;
+        while (points > 0)
+        {
+            yield return null;
+            w.warrior.healthPoints -= Time.deltaTime * interval;
             points -= Time.deltaTime * interval;
         }
     }

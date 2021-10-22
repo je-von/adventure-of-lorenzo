@@ -26,6 +26,7 @@ public class LorenzoController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Lorenzo.GetInstance().restart();
         //rw = GetComponentInChildren<RaycastWeapon>();
 
         isPaused = false;
@@ -77,7 +78,7 @@ public class LorenzoController : MonoBehaviour
         }
 
 
-        if (isShootingMode)
+        if (isShootingMode && !isPaused)
         {
             var mouseX = Input.GetAxis("Mouse X");
             var mouseY = Input.GetAxis("Mouse Y");
@@ -198,6 +199,7 @@ public class LorenzoController : MonoBehaviour
     {
         if (Lorenzo.GetInstance().healthPoints <= 0)
         {
+            isPaused = true;
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             deathPanel.SetActive(true);
@@ -206,6 +208,9 @@ public class LorenzoController : MonoBehaviour
 
     public void RestartMenu()
     {
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        //Lorenzo.GetInstance().restart();
         SceneManager.LoadScene(sceneName: "GameScene", LoadSceneMode.Single);
     }
 
@@ -227,6 +232,9 @@ public class LorenzoController : MonoBehaviour
 
     public void ShowMainMenu()
     {
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.None;
+        //Lorenzo.GetInstance().restart();
         SceneManager.LoadScene(sceneName: "MainScene", LoadSceneMode.Single);
     }
     //private Coroutine current;
