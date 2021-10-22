@@ -64,7 +64,9 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Scripts\Menu\OptionsManager.cs" />
     <Compile Include="Assets\Scripts\Menu\BackgroundMusicManager.cs" />
+    <Compile Include="Assets\Scripts\Character\Enemy\Warrior\Warrior.cs" />
     <Compile Include="Assets\Scripts\Character\Enemy\Mech\Mech.cs" />
+    <Compile Include="Assets\Scripts\Character\Enemy\WarriorSpawner.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\Character\Enemy\KyleSpawner.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\HUD\AmmoInfoController.cs" />
+    <Compile Include="Assets\Scripts\Character\Enemy\Warrior\WarriorController.cs" />
     <Compile Include="Assets\Scripts\Character\Lorenzo\LorenzoController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />
@@ -117,9 +120,9 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemy\Warrior\WarriorController.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemy\Warrior\Warrior.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemy\WarriorSpawner.cs" />
+    <Compile Include="Assets\Scripts\SpaceshipController.cs" />
+    <Compile Include="Assets\Scripts\Character\Enemy\Boss\BossController.cs" />
+    <Compile Include="Assets\Scripts\Character\Enemy\Boss\Boss.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

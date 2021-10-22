@@ -6,7 +6,7 @@ using UnityEngine;
 public class TimeController : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float currentTime;
+    public static float currentTime;
     public TMPro.TextMeshProUGUI timeText;
 
     void Start()

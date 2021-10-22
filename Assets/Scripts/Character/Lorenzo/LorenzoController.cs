@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class LorenzoController : MonoBehaviour
     public GameObject rightHand, leftHand;
     public Transform cam;
     public bool isShootingMode, isPaused;
-    public GameObject exploreCam, shootingCamR, shootingCamL, pausePanel, deathPanel;
+    public GameObject exploreCam, shootingCamR, shootingCamL, pausePanel, deathPanel, victoryPanel;
     public Slider healthSlider, skillSlider;
     RaycastWeapon rw;
 
@@ -199,13 +200,25 @@ public class LorenzoController : MonoBehaviour
     {
         if (Lorenzo.GetInstance().healthPoints <= 0)
         {
-            isPaused = true;
-            Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.None;
-            deathPanel.SetActive(true);
+            StartCoroutine(DieAnimation());
+
+            
         }
     }
+    IEnumerator DieAnimation()
+    {
+        rw.StopShooting();
+        //isAiming = false;
+        rw.raycastDest = rw.raycastSource;
+        animator.SetBool("isDead", true);
 
+        yield return new WaitForSeconds(3f);
+
+        isPaused = true;
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+        deathPanel.SetActive(true);
+    }
     public void RestartMenu()
     {
         Time.timeScale = 1;
@@ -228,6 +241,19 @@ public class LorenzoController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         isPaused = false;
         pausePanel.SetActive(false);
+    }
+
+    public void ShowVictoryMenu()
+    {
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+        isPaused = true;
+
+        var text = victoryPanel.transform.Find("finish_time").gameObject.GetComponent<TMPro.TextMeshProUGUI>();
+        text.text = "Finished in " +  TimeSpan.FromSeconds(TimeController.currentTime).ToString("mm\\:ss");
+        victoryPanel.SetActive(true);
+
+        Debug.Log("masuk");
     }
 
     public void ShowMainMenu()
@@ -325,6 +351,12 @@ public class LorenzoController : MonoBehaviour
                                     wc.warrior.healthPoints -= currentWeapon.damage;
 
                                     //Debug.Log(kc.kyle.healthPoints);
+
+                                }
+                                else if (hitObject.tag == "BOSS")
+                                {
+                                    BossController bc = hitObject.GetComponentInChildren<BossController>();
+                                    bc.boss.healthPoints -= currentWeapon.damage;
 
                                 }
                             }
