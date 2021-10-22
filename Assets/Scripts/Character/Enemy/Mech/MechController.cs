@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,11 @@ using UnityEngine.UI;
 
 public class MechController : MonoBehaviour
 {
+    public TMPro.TextMeshProUGUI overrideText;
+
+    public GameObject player;
+
+    private bool isDead;
 
     public Mech mech;
     private CharacterController controller;
@@ -33,9 +39,13 @@ public class MechController : MonoBehaviour
 
     //RaycastWeapon rw;
     bool isAiming;
+    private List<Coroutine> coroutines;
+    private Coroutine coroutine;
     // Start is called before the first frame update
     void Start()
     {
+        coroutines = new List<Coroutine>();
+        isDead = false;
         isAiming = false;
 
         agent = GetComponent<NavMeshAgent>();
@@ -44,8 +54,8 @@ public class MechController : MonoBehaviour
         animator = GetComponent<Animator>();
         //agent = GetComponent<NavMeshAgent>();
 
-        StartCoroutine(MoveKyle());
-        StartCoroutine(CheckPlayerInRange());
+        coroutines.Add(StartCoroutine(MoveMech()));
+        coroutine = StartCoroutine(CheckPlayerInRange());
 
         //rw = weapon.GetComponentInChildren<RaycastWeapon>();
 
@@ -59,11 +69,14 @@ public class MechController : MonoBehaviour
         //Debug.Log("-----" + this.gameObject);
         healthSlider.value = (float)mech.healthPoints / (float)mech.maxHealth;
 
-        if (mech.healthPoints <= 0)
+        if (mech.healthPoints <= 0 && !isDead)
         {
             transform.Find("Canvas").gameObject.SetActive(false);
-            StopAllCoroutines();
-            agent.enabled = false;
+            StopCoroutine(coroutine);
+            agent.isStopped = true;
+            isDead = true;
+            //ShowOverride();
+
             //StartCoroutine(DieAnimation());
             //Vector3 pos = this.transform.position;
             //pos.y = 1;
@@ -74,8 +87,21 @@ public class MechController : MonoBehaviour
 
         //if(Physics.CheckSphere(transform.position, 10f, playerLayer))
 
+        if (Vector3.Distance(player.transform.position, transform.position) <= 3f && isDead)
+        {
+            ShowOverride();
+        }
+        else
+        {
+            overrideText.gameObject.SetActive(false);
+        }
 
+    }
 
+    private void ShowOverride()
+    {
+        Debug.Log("OVERRIDE");
+        overrideText.gameObject.SetActive(true);
     }
 
     IEnumerator DieAnimation()
@@ -160,7 +186,7 @@ public class MechController : MonoBehaviour
     }
 
     public float turnSmoothVelocity;
-    IEnumerator MoveKyle()
+    IEnumerator MoveMech()
     {
         animator.SetBool("isWalking", true);
 
