@@ -12,6 +12,7 @@ TagManager:
   - AMMO ITEM
   - PAINKILLER ITEM
   - DOUBLEDAMAGE ITEM
+  - MECH
   layers:
   - Default
   - TransparentFX

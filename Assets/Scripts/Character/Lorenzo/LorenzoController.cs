@@ -20,6 +20,9 @@ public class LorenzoController : MonoBehaviour
     RaycastWeapon rw;
 
     public List<GameObject> inventories;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -227,6 +230,9 @@ public class LorenzoController : MonoBehaviour
         SceneManager.LoadScene(sceneName: "MainScene", LoadSceneMode.Single);
     }
     //private Coroutine current;
+
+    private float nextFire = 0.5f, currTime = 0f;
+
     private void ChangeShootingCamera()
     {
         if (isShootingMode)
@@ -264,24 +270,27 @@ public class LorenzoController : MonoBehaviour
 
             if (isShootingMode && animator.GetBool("isAiming"))
             {
-                if (Input.GetKeyDown(KeyCode.R))
+                if (Input.GetKeyDown(KeyCode.R) && !animator.GetBool("IsReloading"))
                 {
                     StartCoroutine(ReloadWeapon());
                 }
 
                 rw = currentWeapon.weaponObj.GetComponentInChildren<RaycastWeapon>();
-                if (Input.GetMouseButton(0))
+
+                currTime += Time.deltaTime;
+                if (Input.GetMouseButton(0) && currTime > nextFire)
                 {
                     if (!animator.GetBool("IsReloading"))
                     {
                         if (currentWeapon.DecreaseAmmo(1))
                         {
+                            nextFire = currTime + 1f / (float)currentWeapon.fireRate;
                             GameObject hitObject = rw.StartShooting();
                             //currentWeapon.currentAmmo--;
                             if (hitObject != null)
                             {
                                 //Debug.Log(hitObject.name + " | " + hitObject.tag);
-                                //Debug.Log(hitObject.name);
+                                Debug.Log(hitObject.name);
 
 
                                 if (hitObject.tag == "KYLE")
@@ -292,9 +301,19 @@ public class LorenzoController : MonoBehaviour
 
                                     //Debug.Log(kc.kyle.healthPoints);
 
+                                } 
+                                else if (hitObject.tag == "MECH")
+                                {
+                                    MechController mc = hitObject.GetComponentInChildren<MechController>();
+                                    Debug.Log(mc.mech.healthPoints + " - " + currentWeapon.damage + " = " + (mc.mech.healthPoints - currentWeapon.damage));
+                                    mc.mech.healthPoints -= currentWeapon.damage;
+
+                                    //Debug.Log(kc.kyle.healthPoints);
+
                                 }
                             }
-
+                            nextFire -= currTime;
+                            currTime = 0f;
                         }
                         else
                         {

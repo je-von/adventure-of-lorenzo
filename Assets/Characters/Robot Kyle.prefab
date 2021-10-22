@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a399c5c7082a544384d6b441205977b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kyleSpawner: {fileID: 0}
   coreItem: {fileID: 7895696998079944299, guid: 997c50e1146941541a587714c839902f, type: 3}
   patrolPoint: {fileID: 0}
   patrolStart: {fileID: 0}
