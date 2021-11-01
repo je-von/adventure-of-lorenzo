@@ -52,6 +52,9 @@ public class LorenzoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (DialogueController.isShowing)
+            return;
+
         //Debug.Log(Time.deltaTime);
 
         healthSlider.value = (float)Lorenzo.GetInstance().healthPoints / (float)Lorenzo.GetInstance().maxHealth;

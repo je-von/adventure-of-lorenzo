@@ -1,9 +1,14 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DialogueController : MonoBehaviour
 {
+    public CinemachineBrain cam;
+
+    public static bool isShowing = false;
+
     public GameObject HUD;
 
     public Animator animator;
@@ -20,7 +25,11 @@ public class DialogueController : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
+        isShowing = true;
+        Cursor.lockState = CursorLockMode.None;
         HUD.SetActive(false);
+        cam.enabled = false;
+
         animator.SetBool("isOpen", true);
         //Debug.Log(dialogue.name + " lagi ngmg");
         nameTxt.text = dialogue.name;
@@ -66,5 +75,9 @@ public class DialogueController : MonoBehaviour
         animator.SetBool("isOpen", false);
         HUD.SetActive(true);
         Debug.Log("ngomong selesai");
+
+        isShowing = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        cam.enabled = true;
     }
 }
