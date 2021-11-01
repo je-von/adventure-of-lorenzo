@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class WarriorController : MonoBehaviour
 {
+    public GameObject player;
+
     public WarriorSpawner warriorSpawner;
 
     public Warrior warrior;
@@ -37,6 +39,8 @@ public class WarriorController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Lorenzo");
+
         isAiming = false;
 
         agent = GetComponent<NavMeshAgent>();
@@ -98,65 +102,40 @@ public class WarriorController : MonoBehaviour
         {
             yield return null;
 
-            Collider[] collider = Physics.OverlapSphere(transform.position, 5f, playerLayer);
-            //Debug.Log(collider.Length);
-
-            if (!isAiming)
+            if (Vector3.Distance(player.transform.position, transform.position) <= 5f)
             {
-                if (collider.Length > 0 && collider[0].gameObject.name == "Lorenzo")
+                if (!isAiming)
                 {
-                    //destination = collider[0].gameObject.transform.position;
                     agent.SetDestination(transform.position);
-                    transform.LookAt(collider[0].gameObject.transform.position);
-
-                    //yield return new WaitForSeconds(1f);
-
-                    //agent.updatePosition = false;
-                    //agent.isStopped = true;
+                    transform.LookAt(player.transform.position);
                     animator.SetBool("isWalking", false);
-                    //Debug.Log("player masuk enemy range");
                     isAiming = true;
 
                     rw.raycastDest = GameObject.Find("EnemyTarget").transform;
-                    //Transform t = collider[0].gameObject.transform;
-                    //t.position += new Vector3(0, 100f, 0);
-                    //rw.raycastDest = t;
-
-
 
                     rw.StartShooting();
                 }
                 else
                 {
-                    //animator.SetBool("isWalking", true);
-                    //agent.updatePosition = true;
-                }
-            }
-            else
-            {
-                if (collider.Length <= 0)
-                {
-                    //agent.isStopped = false;
-                    //agent.updatePosition = true;
-                    animator.SetBool("isWalking", true);
-                    isAiming = false;
-                    rw.StopShooting();
-                }
-                else
-                {
-                    transform.LookAt(collider[0].gameObject.transform.position);
+                    transform.LookAt(player.transform.position);
                     yield return new WaitForSeconds(warrior.shootingInterval);
                     GameObject hitObject = rw.StartShooting();
 
                     if (hitObject != null)
                     {
-                        //Debug.Log(hitObject.name);
                         if (hitObject.name == "Lorenzo")
                         {
                             Lorenzo.GetInstance().healthPoints -= warrior.bulletDamage;
                         }
                     }
+
                 }
+            }
+            else
+            {
+                animator.SetBool("isWalking", true);
+                isAiming = false;
+                rw.StopShooting();
             }
 
 

@@ -10187,9 +10187,11 @@ GameObject:
   - component: {fileID: 4222786342024624254}
   - component: {fileID: 1255693707410137708}
   - component: {fileID: 5216183837073389226}
+  - component: {fileID: 6728246974713059218}
+  - component: {fileID: 7292153059712902289}
   m_Layer: 0
   m_Name: Drone Robot 1
-  m_TagString: Untagged
+  m_TagString: DRONE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10244,6 +10246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33e0bdb294c4114aa71278e860abc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   droneObject: {fileID: 7433490109865980686}
   droneSpawner: {fileID: 0}
   coreItem: {fileID: 7895696998079944299, guid: 997c50e1146941541a587714c839902f, type: 3}
@@ -10256,6 +10259,38 @@ MonoBehaviour:
     m_Bits: 8
   weapon: {fileID: 6458890955989080238}
   turnSmoothVelocity: 0
+--- !u!95 &6728246974713059218
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6582436971806244202}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fcef03b40a2712146a995dacc68163a0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &7292153059712902289
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6582436971806244202}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.65, y: 1.18, z: 2.1}
+  m_Center: {x: -0.00000005960464, y: 0.06, z: 0.00000011920928}
 --- !u!1 &6669732473376228674
 GameObject:
   m_ObjectHideFlags: 0
@@ -10383,7 +10418,7 @@ GameObject:
   - component: {fileID: 2206373195702913572}
   m_Layer: 0
   m_Name: Drone
-  m_TagString: DRONE
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10460,7 +10495,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7433490109865980686}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 45536197721e66c49818659c8c6472a8, type: 2}
   m_CullingMode: 0
@@ -10480,7 +10515,7 @@ BoxCollider:
   m_GameObject: {fileID: 7433490109865980686}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 2.18, y: 2.02, z: 3.3}
   m_Center: {x: -0.00000005960464, y: 0.06, z: 0.00000011920928}

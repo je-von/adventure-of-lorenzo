@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class DroneController : MonoBehaviour
 {
+    public GameObject player;
+
     public GameObject droneObject;
 
     public DroneSpawner droneSpawner;
@@ -39,9 +41,11 @@ public class DroneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Lorenzo");
+
         isAiming = false;
 
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponentInChildren<NavMeshAgent>();
         drone = new Drone();
         //controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
@@ -87,7 +91,7 @@ public class DroneController : MonoBehaviour
         animator.SetBool("isDead", true);
         //agent.baseOffset = 0;
         //agent.isStopped = true;
-        
+
 
         yield return new WaitForSeconds(2f);
         Destroy(this.gameObject);
@@ -106,73 +110,42 @@ public class DroneController : MonoBehaviour
         while (true)
         {
             yield return null;
-
-            Collider[] collider = Physics.OverlapSphere(transform.position, 10f, playerLayer);
-            //Debug.Log(collider.Length);
-
-            if (!isAiming)
+            if (Vector3.Distance(player.transform.position, transform.position) <= 10f)
             {
-                if (collider.Length > 0 && collider[0].gameObject.name == "Lorenzo")
+                if (!isAiming)
                 {
-                    //destination = collider[0].gameObject.transform.position;
                     agent.SetDestination(transform.position);
-                    //transform.LookAt(collider[0].gameObject.transform.position);
-                    droneObject.transform.LookAt(collider[0].gameObject.transform.position);
-                    //droneObject.transform.Rotate(Vector3.forward, 90);
-                    //transform.RotateAround(collider[0].gameObject.transform.position, Vector3.forward, 20 * Time.deltaTime);
-                    //yield return new WaitForSeconds(1f);
-
-                    //agent.updatePosition = false;
-                    //agent.isStopped = true;
+                    droneObject.transform.LookAt(player.transform.position);
                     //animator.SetBool("isWalking", false);
-                    //Debug.Log("player masuk enemy range");
                     isAiming = true;
 
                     rw.raycastDest = GameObject.Find("EnemyTarget").transform;
-                    //Transform t = collider[0].gameObject.transform;
-                    //t.position += new Vector3(0, 100f, 0);
-                    //rw.raycastDest = t;
-
-
 
                     rw.StartShooting();
                 }
                 else
                 {
-                    //animator.SetBool("isWalking", true);
-                    //agent.updatePosition = true;
-                }
-            }
-            else
-            {
-                if (collider.Length <= 0)
-                {
-                    //agent.isStopped = false;
-                    //agent.updatePosition = true;
-                    //animator.SetBool("isWalking", true);
-                    isAiming = false;
-                    rw.StopShooting();
-                    droneObject.transform.rotation = transform.rotation;
-                }
-                else
-                {
-                    //transform.LookAt(collider[0].gameObject.transform.position);
-                    droneObject.transform.LookAt(collider[0].gameObject.transform.position);
+                    droneObject.transform.LookAt(player.transform.position);
                     yield return new WaitForSeconds(drone.shootingInterval);
                     GameObject hitObject = rw.StartShooting();
 
                     if (hitObject != null)
                     {
-                        //Debug.Log(hitObject.name);
                         if (hitObject.name == "Lorenzo")
                         {
                             Lorenzo.GetInstance().healthPoints -= drone.bulletDamage;
                         }
                     }
+
                 }
             }
-
-
+            else
+            {
+                //animator.SetBool("isWalking", true);
+                isAiming = false;
+                rw.StopShooting();
+                droneObject.transform.rotation = transform.rotation;
+            }
 
         }
     }
