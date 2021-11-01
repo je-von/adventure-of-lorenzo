@@ -15,7 +15,7 @@ public class DroneController : MonoBehaviour
 
     public GameObject patrolPoint;
 
-    //Animator animator;
+    Animator animator;
     //private NavMeshAgent agent;
 
     //public GameObject healthBar;
@@ -42,7 +42,7 @@ public class DroneController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         drone = new Drone();
         //controller = GetComponent<CharacterController>();
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         //agent = GetComponent<NavMeshAgent>();
 
         StartCoroutine(MoveDrone());
@@ -62,6 +62,7 @@ public class DroneController : MonoBehaviour
 
         if (drone.healthPoints <= 0)
         {
+            //StopAllCoroutines();
             StartCoroutine(DieAnimation());
             //Vector3 pos = this.transform.position;
             //pos.y = 1;
@@ -81,9 +82,12 @@ public class DroneController : MonoBehaviour
         rw.StopShooting();
         //isAiming = false;
         rw.raycastDest = rw.raycastSource;
-        //animator.SetBool("isDead", true);
+        animator.SetBool("isDead", true);
+        //agent.baseOffset = 0;
+        //agent.isStopped = true;
+        
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         Destroy(this.gameObject);
         Vector3 pos = this.transform.position;
         pos.y = 1;

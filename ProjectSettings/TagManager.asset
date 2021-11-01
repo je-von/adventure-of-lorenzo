@@ -15,6 +15,7 @@ TagManager:
   - MECH
   - WARRIOR
   - BOSS
+  - DRONE
   layers:
   - Default
   - TransparentFX

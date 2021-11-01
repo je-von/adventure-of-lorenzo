@@ -362,6 +362,12 @@ public class LorenzoController : MonoBehaviour
                                     bc.boss.healthPoints -= currentWeapon.damage;
 
                                 }
+                                else if (hitObject.tag == "DRONE")
+                                {
+                                    DroneController dc = hitObject.GetComponentInChildren<DroneController>();
+                                    dc.drone.healthPoints -= currentWeapon.damage;
+
+                                }
                             }
                             nextFire -= currTime;
                             currTime = 0f;
