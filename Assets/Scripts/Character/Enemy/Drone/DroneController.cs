@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class DroneController : MonoBehaviour
 {
+    public GameObject droneObject;
+
     public DroneSpawner droneSpawner;
 
     public Drone drone;
@@ -105,7 +107,7 @@ public class DroneController : MonoBehaviour
         {
             yield return null;
 
-            Collider[] collider = Physics.OverlapSphere(transform.position, 5f, playerLayer);
+            Collider[] collider = Physics.OverlapSphere(transform.position, 10f, playerLayer);
             //Debug.Log(collider.Length);
 
             if (!isAiming)
@@ -114,8 +116,10 @@ public class DroneController : MonoBehaviour
                 {
                     //destination = collider[0].gameObject.transform.position;
                     agent.SetDestination(transform.position);
-                    transform.LookAt(collider[0].gameObject.transform.position);
-
+                    //transform.LookAt(collider[0].gameObject.transform.position);
+                    droneObject.transform.LookAt(collider[0].gameObject.transform.position);
+                    //droneObject.transform.Rotate(Vector3.forward, 90);
+                    //transform.RotateAround(collider[0].gameObject.transform.position, Vector3.forward, 20 * Time.deltaTime);
                     //yield return new WaitForSeconds(1f);
 
                     //agent.updatePosition = false;
@@ -148,10 +152,12 @@ public class DroneController : MonoBehaviour
                     //animator.SetBool("isWalking", true);
                     isAiming = false;
                     rw.StopShooting();
+                    droneObject.transform.rotation = transform.rotation;
                 }
                 else
                 {
-                    transform.LookAt(collider[0].gameObject.transform.position);
+                    //transform.LookAt(collider[0].gameObject.transform.position);
+                    droneObject.transform.LookAt(collider[0].gameObject.transform.position);
                     yield return new WaitForSeconds(drone.shootingInterval);
                     GameObject hitObject = rw.StartShooting();
 

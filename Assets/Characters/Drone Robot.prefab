@@ -583,6 +583,7 @@ GameObject:
   - component: {fileID: -1891361947586959068}
   - component: {fileID: 8145647941761642370}
   - component: {fileID: 9183659452325901581}
+  - component: {fileID: 525546861011051018}
   m_Layer: 0
   m_Name: Drone Robot
   m_TagString: DRONE
@@ -732,6 +733,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.18, y: 2.02, z: 3.3}
   m_Center: {x: -0.00000005960464, y: 0.06, z: 0.00000011920928}
+--- !u!143 &525546861011051018
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9150344057220930336}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Height: 3.33
+  m_Radius: 2.08
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.38, z: 0}
 --- !u!1001 &3255555793225422024
 PrefabInstance:
   m_ObjectHideFlags: 0
