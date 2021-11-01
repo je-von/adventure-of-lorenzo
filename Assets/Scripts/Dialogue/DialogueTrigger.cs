@@ -8,7 +8,8 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Start()
     {
-        TriggerDialogue();
+        if(!Lorenzo.GetInstance().hasRestarted)
+            TriggerDialogue();
     }
     public void TriggerDialogue()
     {

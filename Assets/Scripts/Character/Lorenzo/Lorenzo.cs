@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Lorenzo
 {
+    public bool hasRestarted = false;
+
     public int healthPoints, maxHealth, skillPoints, maxSkill;
     public List<Item> items;
     public int coreItemCount;
@@ -31,6 +33,7 @@ public class Lorenzo
     public void restart()
     {
         instance = new Lorenzo();
+        instance.hasRestarted = true;
     }
 
     public bool DecreaseSkillPoint(int point)
@@ -57,4 +60,6 @@ public class Lorenzo
                 items.RemoveAt(i - 1);
         }
     }
+
+    
 }
