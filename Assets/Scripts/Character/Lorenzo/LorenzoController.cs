@@ -42,7 +42,7 @@ public class LorenzoController : MonoBehaviour
 
         currentWeapon = Lorenzo.GetInstance().primaryWeapon;
 
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         controller = GetComponent<CharacterController>();
         velocity.y = 0;
 
