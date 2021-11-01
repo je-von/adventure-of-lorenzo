@@ -14,6 +14,8 @@ public class Lorenzo
     public GameObject lorenzoObject;
 
     private static Lorenzo instance;
+
+    public bool isInBasement;
     public static Lorenzo GetInstance()
     {
         if (instance == null)
@@ -28,6 +30,7 @@ public class Lorenzo
         maxHealth = healthPoints = 1000;
         skillPoints = maxSkill = 200;
         coreItemCount = 0; // 0/9
+        isInBasement = false;
     }
 
     public void restart()

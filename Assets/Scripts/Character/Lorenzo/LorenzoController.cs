@@ -432,7 +432,7 @@ public class LorenzoController : MonoBehaviour
                 exploreCam.SetActive(false);
 
                 isShootingMode = true;
-                speed = 2f;
+                speed = 3f;
                 currentWeapon.PickWeapon();
 
                 animator.SetBool("isAiming", true);
@@ -447,7 +447,7 @@ public class LorenzoController : MonoBehaviour
                 if (isShootingMode)
                     StartCoroutine(WaitAndPutWeapon());
                 isShootingMode = false;
-                speed = 3f;
+                speed = 5f;
                 animator.SetBool("isAiming", false);
             }
 
