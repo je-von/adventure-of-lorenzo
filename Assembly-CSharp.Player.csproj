@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Character\Enemy\Warrior\WarriorSpawner.cs" />
     <Compile Include="Assets\Scripts\Dialogue\DialogueController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Scripts\Character\Enemy\Drone\DroneSpawner.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\Character\Enemy\Kyle\KyleSpawner.cs" />
     <Compile Include="Assets\Scripts\Character\Lorenzo\Items\PainKiller.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\HUD\AmmoInfoController.cs" />
+    <Compile Include="Assets\Scripts\Character\Enemy\Drone\Drone.cs" />
     <Compile Include="Assets\Scripts\Character\Enemy\Warrior\WarriorController.cs" />
     <Compile Include="Assets\Scripts\Character\Lorenzo\LorenzoController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
@@ -121,21 +123,22 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\Scripts\Character\Lorenzo\Items\HealthPotion.cs" />
+    <Compile Include="Assets\Scripts\Character\Enemy\Drone\DroneController.cs" />
     <Compile Include="Assets\Scripts\Character\Lorenzo\Items\DamageMultiplier.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\Dialogue\BasementDialogueTrigger.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Dialogue\DialogueTrigger.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemy\Drone\DroneSpawner.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemy\Drone\DroneController.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemy\Drone\Drone.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Cannon.cs" />
+    <Compile Include="Assets\Scripts\Weapon\CannonBullet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\Particle Effects\LightningBolt\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Particle Effects\SimpleFX\Materials\UnlitVertexColour_Alpha.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />

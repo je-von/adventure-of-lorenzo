@@ -205,7 +205,7 @@ public class LorenzoController : MonoBehaviour
 
     private void CheckDeath()
     {
-        if (Lorenzo.GetInstance().healthPoints <= 0)
+        if (Lorenzo.GetInstance().healthPoints <= 0 && !animator.GetBool("isDead"))
         {
             StartCoroutine(DieAnimation());
 
