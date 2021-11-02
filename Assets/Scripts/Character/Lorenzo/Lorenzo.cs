@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Lorenzo
 {
+    public GameObject shield;
+
     public bool hasRestarted = false;
 
     public int healthPoints, maxHealth, skillPoints, maxSkill;

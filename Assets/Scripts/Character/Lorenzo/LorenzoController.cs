@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class LorenzoController : MonoBehaviour
 {
+    public GameObject shield;
+
     protected CharacterController controller;
     Animator animator;
     public Vector3 velocity;
@@ -47,6 +49,8 @@ public class LorenzoController : MonoBehaviour
         velocity.y = 0;
 
         animator = GetComponent<Animator>();
+
+        Lorenzo.GetInstance().shield = shield;
     }
 
     // Update is called once per frame

@@ -10,6 +10,16 @@ public class Shield : Item
 
     public override void UseItem()
     {
-        
+        mono.StartCoroutine(ActivateShield());
+    }
+
+    IEnumerator ActivateShield()
+    {
+        GameObject s = Lorenzo.GetInstance().shield;
+        s.SetActive(true);
+
+        yield return new WaitForSeconds(7f);
+
+        s.SetActive(false);
     }
 }
