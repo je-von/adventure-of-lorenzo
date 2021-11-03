@@ -690,7 +690,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33e0bdb294c4114aa71278e860abc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  droneSpawner: {fileID: 0}
+  inventoryItems:
+  - {fileID: 6763275171821080758, guid: cefcd4817a6892e4e990e6e3a769c17f, type: 3}
+  - {fileID: 4637307253024709082, guid: 537302cb5daaec2498967cbb44dbbbef, type: 3}
+  - {fileID: 755542907379984699, guid: 1f022bc9155543d4882c9113b1a4b7f1, type: 3}
+  - {fileID: 6530569269408078051, guid: 42a2aed3b444e6449b384f6e1508da34, type: 3}
+  - {fileID: 5115000249559858475, guid: 1b329926b015e0b44ba25ef895385291, type: 3}
+  - {fileID: 6042098909190296062, guid: 4697ff40fd65bd64abd4ee5a53247268, type: 3}
+  player: {fileID: 0}
+  enemySpawner: {fileID: 0}
   coreItem: {fileID: 7895696998079944299, guid: 997c50e1146941541a587714c839902f, type: 3}
   patrolPoint: {fileID: 0}
   patrolStart: {fileID: 0}
@@ -699,8 +707,12 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  agent: {fileID: 0}
   weapon: {fileID: 4645205404333387904}
+  rw: {fileID: 0}
+  isAiming: 0
   turnSmoothVelocity: 0
+  droneObject: {fileID: 0}
 --- !u!95 &8145647941761642370
 Animator:
   serializedVersion: 3

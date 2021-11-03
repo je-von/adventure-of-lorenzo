@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PrimAlgorithm : MonoBehaviour
 {
+    public TMPro.TextMeshProUGUI warningText;
+
     public GameObject lightningEffect;
 
     public LayerMask enemyLayer;
@@ -13,6 +15,12 @@ public class PrimAlgorithm : MonoBehaviour
     private List<GameObject> vertex;
     private Collider[] hitColliders;
     private Collider[] prevHitColliders;
+
+    float radius = 10f;
+    public LineRenderer line;
+    
+
+    bool hasCheckedRange = false;
 
     private int MinKey(float[] key, bool[] mstSet)
     {
@@ -71,17 +79,30 @@ public class PrimAlgorithm : MonoBehaviour
             Debug.Log(parent[i] + " - " + i + "\t" + (graph[i])[parent[i]]);
     }
 
-    private void Init()
+    private Collider[] CheckEnemyInRange()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, radius, enemyLayer);
+
+        if (colliders.Length <= 0)
+        {
+            Debug.Log("no enemy");
+            return null;
+        }
+
+        return colliders;
+    }
+
+    private void StartAttack()
     {
         vertex.Clear();
 
-        hitColliders = Physics.OverlapSphere(transform.position, 10f, enemyLayer);
+        //hitColliders = Physics.OverlapSphere(transform.position, radius, enemyLayer);
 
-        if (hitColliders.Length <= 0)
-        {
-            Debug.Log("no enemy");
-            return;
-        }
+        //if (hitColliders.Length <= 0)
+        //{
+        //    Debug.Log("no enemy");
+        //    return;
+        //}
 
         foreach (Collider c in hitColliders)
         {
@@ -172,55 +193,114 @@ public class PrimAlgorithm : MonoBehaviour
         for (int i = 0; i < V; i++)
         {
 
-                int points = electricDamage * connectionCount[i];
-            if(vertex[i].GetComponent<KyleController>() != null) {
-                var enemy = vertex[i].GetComponent<KyleController>();
+            int points = electricDamage * connectionCount[i];
+            if(vertex[i].GetComponent<EnemyController>() != null) {
+                var enemy = vertex[i].GetComponent<EnemyController>();
                 StartCoroutine(DecreaseEnemyHealth(enemy, points));
             }
-            else if (vertex[i].GetComponent<WarriorController>() != null)
-            {
-                var enemy = vertex[i].GetComponent<WarriorController>();
-                StartCoroutine(DecreaseEnemyHealth(enemy, points));
-            }
-            //Debug.Log("#" + vertex[i].name);
-            //if(enemy != null)
-            //{
-            //    //Debug.Log(enemy.kyle.healthPoints + " kurang " + (electricDamage * connectionCount[i]));
-
-            //    StartCoroutine(DecreaseEnemyHealth(enemy, points));
-            //}
-            //else
-            //{
-            //    enemy = vertex[i].GetComponent<WarriorController>();
-            //    if(enemy != null)
-            //    {
-            //        StartCoroutine(DecreaseWarriorHealth(enemy, points));
-            //    }
-            //}
         }
         //Lorenzo.GetInstance().skillPoints -= 75;
         //Lorenzo.GetInstance().DecreaseSkillPoint(75);
     }
 
-    IEnumerator DecreaseEnemyHealth(KyleController k, float points)
+    IEnumerator DecreaseEnemyHealth(EnemyController e, float points)
     {
         float interval = points / 6f;
         while (points > 0)
         {
             yield return null;
-            k.kyle.healthPoints -= Time.deltaTime * interval;
+            e.enemy.healthPoints -= Time.deltaTime * interval;
             points -= Time.deltaTime * interval;
         }
     }
 
-    IEnumerator DecreaseEnemyHealth(WarriorController w, float points)
+    //IEnumerator DecreaseEnemyHealth(WarriorController w, float points)
+    //{
+    //    float interval = points / 6f;
+    //    while (points > 0)
+    //    {
+    //        yield return null;
+    //        w.enemy.healthPoints -= Time.deltaTime * interval;
+    //        points -= Time.deltaTime * interval;
+    //    }
+    //}
+
+    void StarMarking()
     {
-        float interval = points / 6f;
-        while (points > 0)
+        int segments = 40;
+        line.positionCount = segments + 1;
+        //radiusLine.SetVertexCount(segments + 1);
+        line.useWorldSpace = false;
+
+        float x, z, deg = 20f;
+
+        for (int i = 0; i <= segments; i++)
         {
-            yield return null;
-            w.warrior.healthPoints -= Time.deltaTime * interval;
-            points -= Time.deltaTime * interval;
+            x = Mathf.Sin(Mathf.Deg2Rad * deg) * radius;
+            z = Mathf.Cos(Mathf.Deg2Rad * deg) * radius;
+
+            line.SetPosition(i, new Vector3(x, 0, z));
+            Debug.Log("line:" + line.GetPosition(i));
+            deg += (360f / segments);
+        }
+
+        line.gameObject.SetActive(false);
+
+        StartCoroutine(ActivateRadiusLine());
+        StartCoroutine(ActivateBombSprite());
+    }
+
+    IEnumerator ActivateRadiusLine()
+    {
+        line.gameObject.SetActive(true);
+        hasCheckedRange = true;
+
+        yield return new WaitForSeconds(5f);
+
+        line.gameObject.SetActive(false);
+        hasCheckedRange = false;
+    }
+
+    IEnumerator ActivateBombSprite()
+    {
+        float startTime = Time.time;
+        float timeElapsed = 0;
+        while (timeElapsed <= 5)
+        {
+            timeElapsed = Time.time - startTime;
+            hitColliders = null;
+            hitColliders = Physics.OverlapSphere(transform.position, radius, enemyLayer);
+            V = hitColliders.Length;
+            if (prevHitColliders != null)
+            {
+                foreach (var prev in prevHitColliders)
+                {
+                    bool flag = false;
+                    foreach (var h in hitColliders)
+                    {
+                        if (prev.Equals(h))
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag)
+                    {
+                        prev.GetComponent<EnemyController>().SetEnemyInAttackRange(false);
+                    }
+                }
+            }
+            foreach (var h in hitColliders)
+            {
+                h.GetComponent<EnemyController>().SetEnemyInAttackRange(true);
+            }
+
+            prevHitColliders = hitColliders;
+            yield return new WaitForSeconds(0);
+        }
+        foreach (var prev in prevHitColliders)
+        {
+            prev.GetComponent<EnemyController>().SetEnemyInAttackRange(false);
         }
     }
 
@@ -230,14 +310,45 @@ public class PrimAlgorithm : MonoBehaviour
     }
     private void Update()
     {
+        if (DialogueController.isShowing)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (Lorenzo.GetInstance().DecreaseSkillPoint(75))
+            hitColliders = CheckEnemyInRange();
+            if (hitColliders == null)
             {
-                Init();
+                StartCoroutine(ShowWarningText());
+                return;
+            }
 
+            if (hasCheckedRange)
+            {
+                Debug.Log("z dua kali");
+
+                if (Lorenzo.GetInstance().DecreaseSkillPoint(75))
+                {
+                    StartAttack();
+                }
+
+            }
+            else
+            {
+                Debug.Log("z sekali");
+                StarMarking();
             }
 
         }
+    }
+
+    IEnumerator ShowWarningText()
+    {
+        warningText.text = "NO ENEMY IN RADIUS";
+        warningText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(3f);
+
+        warningText.gameObject.SetActive(false);
+
     }
 }

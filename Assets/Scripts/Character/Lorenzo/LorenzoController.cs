@@ -334,11 +334,11 @@ public class LorenzoController : MonoBehaviour
                                 Debug.Log(hitObject.name);
 
 
-                                if (hitObject.tag == "KYLE")
+                                if (hitObject.tag == "KYLE" || hitObject.tag == "WARRIOR" || hitObject.tag == "DRONE")
                                 {
-                                    KyleController kc = hitObject.GetComponentInChildren<KyleController>();
+                                    EnemyController ec = hitObject.GetComponentInChildren<EnemyController>();
                                     //Debug.Log(kc.kyle.healthPoints + " - " + currentWeapon.damage + " = " + (kc.kyle.healthPoints - currentWeapon.damage));
-                                    kc.kyle.healthPoints -= currentWeapon.damage;
+                                    ec.enemy.healthPoints -= currentWeapon.damage;
 
                                     //Debug.Log(kc.kyle.healthPoints);
 
@@ -352,26 +352,26 @@ public class LorenzoController : MonoBehaviour
                                     //Debug.Log(kc.kyle.healthPoints);
 
                                 }
-                                else if (hitObject.tag == "WARRIOR")
-                                {
-                                    WarriorController wc = hitObject.GetComponentInChildren<WarriorController>();
-                                    wc.warrior.healthPoints -= currentWeapon.damage;
+                                //else if (hitObject.tag == "WARRIOR")
+                                //{
+                                //    WarriorController wc = hitObject.GetComponentInChildren<WarriorController>();
+                                //    wc.enemy.healthPoints -= currentWeapon.damage;
 
-                                    //Debug.Log(kc.kyle.healthPoints);
+                                //    //Debug.Log(kc.kyle.healthPoints);
 
-                                }
+                                //}
                                 else if (hitObject.tag == "BOSS")
                                 {
                                     BossController bc = hitObject.GetComponentInChildren<BossController>();
                                     bc.boss.healthPoints -= currentWeapon.damage;
 
                                 }
-                                else if (hitObject.tag == "DRONE")
-                                {
-                                    DroneController dc = hitObject.GetComponentInChildren<DroneController>();
-                                    dc.drone.healthPoints -= currentWeapon.damage;
+                                //else if (hitObject.tag == "DRONE")
+                                //{
+                                //    DroneController dc = hitObject.GetComponentInChildren<DroneController>();
+                                //    dc.enemy.healthPoints -= currentWeapon.damage;
 
-                                }
+                                //}
                             }
                             nextFire -= currTime;
                             currTime = 0f;
