@@ -18,7 +18,7 @@ public class LorenzoController : MonoBehaviour
     public GameObject rightHand, leftHand;
     public Transform cam;
     public bool isShootingMode, isPaused;
-    public GameObject exploreCam, shootingCamR, shootingCamL, pausePanel, deathPanel, victoryPanel;
+    public GameObject victoryCam, exploreCam, shootingCamR, shootingCamL, pausePanel, deathPanel, victoryPanel;
     public Slider healthSlider, skillSlider;
     RaycastWeapon rw;
 
@@ -252,12 +252,20 @@ public class LorenzoController : MonoBehaviour
 
     public void ShowVictoryMenu()
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
         isPaused = true;
 
         var text = victoryPanel.transform.Find("finish_time").gameObject.GetComponent<TMPro.TextMeshProUGUI>();
         text.text = "Finished in " +  TimeSpan.FromSeconds(TimeController.currentTime).ToString("mm\\:ss");
+        exploreCam.gameObject.SetActive(false);
+        shootingCamL.gameObject.SetActive(false);
+        shootingCamR.gameObject.SetActive(false);
+
+        victoryCam.gameObject.SetActive(true);
+
+        Lorenzo.GetInstance().lorenzoObject.SetActive(false);
+
         victoryPanel.SetActive(true);
 
         Debug.Log("masuk");

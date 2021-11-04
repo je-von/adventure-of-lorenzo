@@ -9,7 +9,7 @@ public class SpaceshipController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -23,6 +23,7 @@ public class SpaceshipController : MonoBehaviour
             overrideText.gameObject.SetActive(true);
             if (Input.GetKeyDown(KeyCode.F))
             {
+                StartCoroutine(MoveSpaceship());
                 player.GetComponent<LorenzoController>().ShowVictoryMenu();
             }
         }
@@ -30,5 +31,35 @@ public class SpaceshipController : MonoBehaviour
         {
             overrideText.gameObject.SetActive(false);
         }
+    }
+
+    IEnumerator MoveSpaceship()
+    {
+
+        while (transform.position.z > -107)
+        {
+            yield return null;
+            transform.position += new Vector3(0, 0, -5f * Time.deltaTime);
+        }
+
+        while (true)
+        {
+            yield return null;
+            int i = 0;
+            while (i < 200)
+            {
+                yield return null;
+                transform.Rotate(0, 0, 5f * Time.deltaTime, Space.Self);
+                i++;
+            }
+            i = 0;
+            while (i < 200)
+            {
+                yield return null;
+                transform.Rotate(0, 0, -5f * Time.deltaTime, Space.Self);
+                i++;
+            }
+        }
+
     }
 }
