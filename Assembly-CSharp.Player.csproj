@@ -56,6 +56,7 @@
     <Compile Include="Assets\Scripts\Menu\ButtonManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Scripts\Character\Enemy\Kyle\KyleController.cs" />
+    <Compile Include="Assets\Scripts\Character\Enemy\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Character\Lorenzo\Items\Ammo.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Assets\Scripts\HUD\CoreItemTextController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+    <Compile Include="Assets\Scripts\Character\Enemy\EnemyController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\HUD\AmmoInfoController.cs" />
     <Compile Include="Assets\Scripts\Character\Enemy\Drone\Drone.cs" />
@@ -129,8 +131,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Dialogue\DialogueTrigger.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemy\EnemyController.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemy\EnemySpawner.cs" />
+    <Compile Include="Assets\Scripts\CloseDoorController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

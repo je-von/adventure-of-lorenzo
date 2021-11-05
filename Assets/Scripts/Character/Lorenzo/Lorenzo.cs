@@ -37,8 +37,10 @@ public class Lorenzo
 
     public void restart()
     {
+        bool temp = hasRestarted;
         instance = new Lorenzo();
-        instance.hasRestarted = true;
+        hasRestarted = temp;
+        //instance.hasRestarted = true;
     }
 
     public bool DecreaseSkillPoint(int point)

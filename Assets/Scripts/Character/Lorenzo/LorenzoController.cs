@@ -10,7 +10,7 @@ public class LorenzoController : MonoBehaviour
 {
     public Image blood;
 
-    public GameObject shield;
+    public GameObject shield, HUD;
 
     protected CharacterController controller;
     Animator animator;
@@ -233,6 +233,7 @@ public class LorenzoController : MonoBehaviour
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         //Lorenzo.GetInstance().restart();
+        Lorenzo.GetInstance().hasRestarted = true;
         SceneManager.LoadScene(sceneName: "GameScene", LoadSceneMode.Single);
     }
 
@@ -292,7 +293,9 @@ public class LorenzoController : MonoBehaviour
 
         Lorenzo.GetInstance().lorenzoObject.SetActive(false);
 
+        HUD.SetActive(false);
         victoryPanel.SetActive(true);
+        
 
         Debug.Log("masuk");
     }
