@@ -10,7 +10,8 @@ public class CannonBullet : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Lorenzo.GetInstance().healthPoints -= 250;
+            //Lorenzo.GetInstance().healthPoints -= 250;
+            other.GetComponent<LorenzoController>().DecreaseHealth(250);
             Debug.Log("kena cannon");
         }
         else

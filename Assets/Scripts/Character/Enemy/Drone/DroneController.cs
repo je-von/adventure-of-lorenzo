@@ -35,7 +35,8 @@ public class DroneController : EnemyController
                     {
                         if (hitObject.name == "Lorenzo")
                         {
-                            Lorenzo.GetInstance().healthPoints -= enemy.bulletDamage;
+                            //Lorenzo.GetInstance().healthPoints -= enemy.bulletDamage;
+                            hitObject.GetComponent<LorenzoController>().DecreaseHealth(enemy.bulletDamage);
                         }
                     }
 

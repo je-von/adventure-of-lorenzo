@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class LorenzoController : MonoBehaviour
 {
+    public Image blood;
+
     public GameObject shield;
 
     protected CharacterController controller;
@@ -248,6 +250,30 @@ public class LorenzoController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         isPaused = false;
         pausePanel.SetActive(false);
+    }
+
+
+    Coroutine fadeBloodCoroutine;
+    public void DecreaseHealth(int health)
+    {
+        Lorenzo.GetInstance().healthPoints -= health;
+        if (fadeBloodCoroutine != null)
+            StopCoroutine(fadeBloodCoroutine);
+        fadeBloodCoroutine = StartCoroutine(FadeBlood());
+    }
+
+    IEnumerator FadeBlood()
+    {
+        for (float i = blood.color.a; i <= 0.5; i += Time.deltaTime)
+        {
+            blood.color = new Color(1, 1, 1, i);
+            yield return null;
+        }
+        for (float i = blood.color.a; i >= 0; i -= Time.deltaTime)
+        {
+            blood.color = new Color(1, 1, 1, i);
+            yield return null;
+        }     
     }
 
     public void ShowVictoryMenu()
